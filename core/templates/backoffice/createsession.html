@@ -1,0 +1,306 @@
+{% extends 'backoffice/bo_layout.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+	
+	<div class="container">		
+		<form action = "{{url_for('backoffice.CreateSession')}}" method="post" onsubmit="return validate();">
+			
+			<div class="card-footer text-muted">   
+				<div class="row">
+					<div class="col-md-6 offset-md-3 offset-md-1">			  
+						<div class="form-group">						
+						<h3 class="col-md-12 offset-md-3">CREATE SESSION</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">                      
+				   <div class="col-sm-12 text-right">	  
+					<a id="dates" name="dates" class="btn btn-success" href="{{ url_for('backoffice.SessionIndex') }}">Index</a>	  
+				   </div>
+				</div>
+			</div>
+			<br>
+			
+			{% if message is defined and message|length > 0  %}
+			<div class="row">								
+				<div class="col-md-12 offset-md-4" style="color: red;">
+					{{ message }}
+				</div>
+			</div>
+			{% endif %}
+			<br>
+			{% if result  %}
+			{% set sessionhall = result.searchhall %}
+			{% endif %}
+			<div class="row">
+				<div class="col-md-2 offset-md-0">
+					<div class="form-group">
+						<label for="searchhall">Session Hall <b style= 'color:red'>*</b></label>
+						<select class="form-control" id = "searchhall" name = "searchhall">
+							<option selected value=''>Select Hall </option>
+							{% for hall in halls %}
+								{% if hall == session_hall %}
+								<option value= '{{ hall }}' selected>{{ hall }}</option>
+								{% else %}
+									<option value= '{{ hall }}'>{{ hall }}</option>
+								{% endif %}									
+							{% endfor %}																							
+						</select>
+						<span class="error" id="searchhall_error"></span>
+					</div>
+				</div>
+				<div class="col-md-3 offset-md-0">
+					<div class="form-group">
+						<label for="from_date">Session Start Date <b style= 'color:red'>*</b></label>
+						{% if result %}
+						<input type="date" name="from_date" id="from_date" class="form-control" value="{{result.start_date}}"/>
+						{% else %}
+						<input type="date" name="from_date" id="from_date" class="form-control"/>
+						{% endif %}				  
+											  
+					<span class="error" name="from_date_error" id="from_date_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-3 offset-md-0">
+					<div class="form-group">
+						<label for="to_date">Session End Date <b style= 'color:red'>*</b></label>
+						{% if result %}
+						<input type="date" name="to_date" id="to_date" class="form-control" value="{{result.end_date}}" />						
+						{% else %}
+						<input type="date" name="to_date" id="to_date" class="form-control" />
+						{% endif %}
+									    
+					<span class="error" name="to_date_error" id="to_date_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-2 offset-md-0">
+					<div class="form-group">
+						<label for="from_date">Session Start Time <b style= 'color:red'>*</b></label>					  
+						{% if result %}
+						<input type="time" name="start_time" id="start_time" class="form-control" value="{{result.start_time}}"/>											
+						{% else %}						
+						<input type="time" name="start_time" id="start_time" class="form-control" />
+						{% endif %}
+											  
+					<span class="error" name="start_time_error" id="start_time_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-2 offset-md-0">
+					<div class="form-group">
+						<label for="to_date">Session End Time <b style= 'color:red'>*</b></label>
+						{% if result %}												
+						<input type="time" name="end_time" id="end_time" class="form-control" value="{{result.end_time}}" />
+						{% else %}						
+						<input type="time" name="end_time" id="end_time" class="form-control" />
+						{% endif %}
+									    
+					<span class="error" name="end_time_error" id="end_time_error"></span>
+					</div>					  
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="session_title">Session Title <b style= 'color:red'>*</b></label>
+						{% if result %}																		
+						<textarea name="session_title" class="form-control" id="session_title" rows="3" cols="30" placeholder="Enter Session Title here.." >{{result.session_title}}</textarea>
+						{% else %}						
+						<textarea name="session_title" class="form-control" id="session_title" rows="3" cols="30" placeholder="Enter Session Title here.."></textarea>
+						{% endif %}
+									    
+					<span class="error" name="sessiontitle_error" id="sessiontitle_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="session_subtitle">Sub title</label>
+						{% if result %}
+						<textarea name="session_subtitle" class="form-control" id="session_subtitle" rows="3" cols="30" placeholder="Enter Sub titles here..">{{result.session_subtitle}}</textarea>																								
+						{% else %}												
+						<textarea name="sub_title" class="form-control" id="sub_title" rows="3" cols="30" placeholder="Enter Sub titles here.."></textarea>
+						{% endif %}
+						
+						<span class="error" name="sub_title_error" id="sub_title_error"></span>
+					</div>					  
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12 offset-md-0">
+					<div class="form-group">
+						<label for="session_description">Session Description</label>
+						{% if result %}						
+						<textarea name="session_desc" class="form-control" id="session_desc" rows="4" cols="30" placeholder="Enter Session Description here..">{{result.session_desc}}</textarea>
+						{% else %}												
+						<textarea name="session_desc" class="form-control" id="session_desc" rows="4" cols="30" placeholder="Enter Session Description here.."></textarea>						
+						{% endif %}
+									    
+					<span class="error" name="sessiondesc_error" id="sessiondesc_error"></span>
+					</div>					  
+				</div>				
+			</div>	
+			
+			<div class="row">
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="bg_color">Background Color Picker (Choose light colors)</label>
+						{% if result %}						
+						<input type="color" name="bg_color" class="form-control" value="{{result.bg_color}}" />
+						{% else %}												
+						<input type="color" name="bg_color" class="form-control" value="#FFFFFF" />
+						{% endif %}
+						
+						<span class="error" name="bgcolorpicker_error" id="bgcolorpicker_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="video_link">Video Link</label>
+						{% if result %}
+						<textarea name="video_link" class="form-control" id="video_link" rows="2" cols="30" placeholder="Enter video_link here..">{{result.video_link}}</textarea>												
+						{% else %}																		
+						<textarea name="video_link" class="form-control" id="video_link" rows="2" cols="30" placeholder="Enter video_link here.."></textarea>
+						{% endif %}
+									    
+					<span class="error" name="video_link_error" id="video_link_error"></span>
+					</div>					  
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="zoom_link">Zoom Link</label>
+						{% if result %}
+						<textarea name="zoom_link" class="form-control" id="zoom_link" rows="2" cols="30" placeholder="Enter zoom link here..">{{result.zoom_link}}</textarea>												
+						{% else %}																		
+						<textarea name="zoom_link" class="form-control" id="zoom_link" rows="2" cols="30" placeholder="Enter zoom link here.."></textarea>
+						{% endif %}
+									    
+					<span class="error" name="zoom_link_error" id="zoom_link_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="live_stream">Live Stream</label>
+						{% if result %}
+						<textarea name="live_stream" class="form-control" id="live_stream" rows="2" cols="30" placeholder="Enter live stream here..">{{result.live_stream}}</textarea>												
+						{% else %}																		
+						<textarea name="live_stream" class="form-control" id="live_stream" rows="2" cols="30" placeholder="Enter live stream here.."></textarea>
+						{% endif %}
+									    
+						<span class="error" name="live_stream_error" id="live_stream_error"></span>
+					</div>					  
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="zoom_meeting_id">Zoom Id</label>
+						{% if result %}
+						<input name="zoom_meeting_id" class="form-control" id="zoom_meeting_id" placeholder="Enter zoom id here..">{{result.zoom_meeting_id}}</input>												
+						{% else %}																		
+						<input name="zoom_meeting_id" class="form-control" id="zoom_meeting_id" placeholder="Enter zoom id here.."></input>
+						{% endif %}
+									    
+						<span class="error" name="zoom_meeting_id_error" id="zoom_meeting_id_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-6 offset-md-0">
+					<div class="form-group">
+						<label for="zoom_password">Zoom Password</label>
+						{% if result %}
+						<input name="zoom_password" class="form-control" id="zoom_password" placeholder="Enter zoom password here..">{{result.zoom_password}}</input>												
+						{% else %}																		
+						<input name="zoom_password" class="form-control" id="zoom_password" placeholder="Enter zoom password here.."></input>
+						{% endif %}						
+									    
+						<span class="error" name="zoom_password_error" id="zoom_password_error"></span>
+					</div>					  
+				</div>				
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12 text-center">
+					<div>
+						<input type="submit" id="next" name="next" value="Submit" class="btn btn-primary"></input> 
+					</div>			  
+				</div>
+			</div>
+			
+		</form>
+	</div> <!-- container end -->	
+{% endblock %}	
+	
+{% block bottomscript %}	
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+		
+		
+		function validate(){
+			valid = true;
+
+			let val1 = $("#searchhall").val();
+			if (val1 == ''){
+					$('#searchhall_error').text("Please select a hall!");					
+					valid = false;
+				}
+			let val2 = $("#from_date").val();
+			if (val2 == ''){
+					$('#from_date_error').text("Please select a start date!");					
+					valid = false;
+				}
+			let val3 = $("#to_date").val();
+			if (val3 == ''){
+					$('#to_date_error').text("Please select an end date!");					
+					valid = false;
+				}	
+			let val4 = $("#start_time").val();
+			if (val4 == ''){
+					$('#start_time_error').text("Select a start time!");					
+					valid = false;
+				}
+			let val5 = $("#end_time").val();
+			if (val5 == ''){
+					$('#end_time_error').text("Select an end time!");					
+					valid = false;
+				}
+			let val6 = $("#session_title").val();
+			if (val6 == '' || val6.length < 1){
+					$('#sessiontitle_error').text("Please enter session title!");					
+					valid = false;
+				}				
+			
+			let val7 = $("#bgcolorpicker").val();
+			if (val7 == ''){
+					$('#bgcolorpicker_error').text("Please choose a color!");					
+					valid = false;
+				}
+			// let val8 = $("#live_stream").val();
+			// if (val8 == '' || val8.length < 1){
+			// 		$('#live_stream_error').text("Please enter live stream!");					
+			// 		valid = false;
+			// 	}
+
+			// let val9 = $("#zoom_link").val();
+			// if (val9 == '' || val9.length < 1){
+			// 		$('#zoom_link_error').text("Please enter zoom link!");					
+			// 		valid = false;
+			// 	}
+
+			// let val10 = $("#session_description").val();
+			// if (val10 == '' || val10.length < 1){
+			// 		$('#sessiondesc_error').text("Please enter session description!");					
+			// 		valid = false;
+			// 	}		
+			return valid;
+		}
+
+		
+	</script>
+{% endblock %}	

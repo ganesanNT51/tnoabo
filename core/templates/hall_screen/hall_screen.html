@@ -1,0 +1,146 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} Program Live page {% endblock %}
+{% block content %}
+
+<style>
+  .table td , .table th  {
+    border-top: 1px solid#fff;
+  }
+  .table th
+  {
+    position: sticky;
+    top:0;
+  }  
+
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+  <div class="container-fluid">  
+<div class="row  mt-5">
+  <div class="col-md-3 text-center">
+    <h3><a href="{{ url_for('sessions.Programsheet') }}" style="align-items: center;" title="program_sheet" class="btn btn-lg btn-primary" >
+      GO BACK TO PROGRAMSHEET <i class='fas fa-angle-right'></i> </a></h3>
+  </div>
+  <div class="col-md-6  text-center">
+    <!-- <img src="/static/images/hall_screen/background/inner_page_v2.jpg" style="height:75px;" class="img-fluid" alt="Responsive image"> -->
+  </div>
+  <div class="col-md-3 text-center">
+    <h3><a href="{{ url_for('user.Lobby') }}" style="align-items: center;" title="image" class="btn btn-lg btn-primary" >
+        GO BACK TO LOBBY <i class='fas fa-angle-right'></i> </a></h3>
+  </div>
+  
+</div>
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <div class="row">
+          {% if previous_sessions: %}
+            <div class="col-lg-12  text-center col-sm-12"><br/>
+              <h4 class="sub_header">Previous Session</h4>
+              <div class="Scroll">
+              <table class="table table-hover"  style="background-color:#008080;border: 1px solid #ddd;" id="Scroll">
+                <thead>
+                    <tr>
+                    <th style="width:25%;" class="text-white"> Session </th>
+                    <!-- <th style="width:15%;" class="text-white"> Hall </th> -->
+                    <th style="width:25%;" class="text-white"> Time </th>
+                    <th style="width:10%;" class="text-white"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for ps in previous_sessions %}
+                    <tr class="text-white">
+                       <td class="text-justify" data-label="Session"> {{ ps.session_title}} </td>
+                        <!-- <td data-label="Hall"> {{ ps.session_hall}} </td> -->
+                        <td class="text-left" data-label="Time"> {{ ps.session_start_date_time.strftime('%H:%M')}} - {{ ps.session_end_date_time.strftime('%H:%M')}}</td>
+                        <td data-label="">
+                          <div class="col-xs-1" align="center">
+                            <a style="line-height: none;color: white;" href="{{ url_for('sessions.hall_screen',session_id=ps.session_id) }}" title="previous_sessions" class="fa fa-play-circle-o fa-lg center">
+                            </a> 
+                          </div>
+                        </td> 
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>  
+              </div>
+            </div> 
+          {% endif %}
+          </div>
+      </div>
+      <div class="col-lg-6 col-sm-12 text-center  mt-md-5">
+        <div class="jumbotron orange  mt-md-4" style="padding: 1rem 1rem;">
+          {% if current_session %}
+            <h2>{{ current_session.session_title|upper }}</h2>
+            <h5>{{ current_session.session_start_date_time.strftime('%d-%b-%Y %H:%M' )}} - {{ current_session.session_end_date_time.strftime('%H:%M')}}</h5>
+            <h3 >{{ current_session.session_subtitle or '' }}</h3>
+            {% if  current_session.session_title == 'E-POSTERS' %}
+                <a  href="{{ url_for('poster.poster_area',p_date=current_session.date) }}" class="btn btn-lg btn-danger mb-3" title="click here to play">
+                  CLICK HERE TO VIEW
+                </a>
+            {% else %}
+                <a  href="{{ url_for('sessions.get_session_by_id',session_id=session_id) }}" class="btn btn-lg btn-danger mb-3" title="click here to play">
+                  <i class="fa fa-play"></i>
+                </a>
+             {% endif %}   
+            <div class="text-left">
+              {% autoescape off %}
+              {{ current_session.session_desc or ''}}
+              {% endautoescape %}
+            </div>
+          {% endif %} 
+        </div> 
+      </div>
+
+      <div class="col-lg-3 col-sm-12">
+          <div class="row" >
+              <div class="col-lg-12  text-center col-sm-12"><br/>
+                <h4 class="sub_header">Upcoming Session</h4>
+                <div class="Scroll">
+                <table class="table table-hover"  style="background-color:Indigo;border: 1px solid #ddd;" id="Scroll">
+                  <thead>
+                      <tr>
+                      <th style="width:25%;" class="text-white"> Session </th>
+                      <!-- <th style="width:15%;" class="text-white"> Hall </th> -->
+                      <th style="width:25%;" class="text-white"> Time </th>
+                      <th style="width:10%;" class="text-white"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for us in upcoming_sessions %}
+                      <tr class="text-white">
+                         <td class="text-justify" data-label="Session"> {{ us.session_title}} </td>
+                          <!-- <td data-label="Hall"> {{ us.session_hall}} </td> -->
+                          <td class="text-left" data-label="Time"> {{ us.session_start_date_time.strftime('%H:%M')}} - {{ us.session_end_date_time.strftime('%H:%M')}}</td>
+                          <td data-label="">
+                            <div class="col-xs-1" align="center">
+                              <a style="line-height: none;color: white;" href="{{ url_for('sessions.hall_screen',session_id=us.session_id) }}" title="upcoming_sessions"  class="fa fa-play-circle-o fa-lg center">
+                              </a> 
+                            </div>
+                          </td> 
+                        </tr>
+                    
+                    {% endfor %}
+                  </tbody>
+                </table> 
+                <!-- <div class = "row">
+                  <div class="col-lg-12">
+                    <div class="form-group"> 
+                      <div class="col-md-10 offset-1">
+                      <h3><a href="{{ url_for('user.Lobby') }}" style="align-items: center;" title="image" class="btn btn-lg btn-primary" >
+                          GO BACK TO LOBBY <i class='fas fa-angle-right'></i> </a></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>  -->
+                </div>
+              </div>  
+            </div>
+        </div>
+      
+     
+    </div>
+
+    
+  </div>
+  
+{% endblock %}

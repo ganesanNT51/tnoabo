@@ -1,0 +1,73 @@
+<!--using html5 doctype -->
+<!doctype html>
+
+<!--using language attribute-->
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        
+    </head>
+
+    <body > 
+
+        <div class="container">
+            <div class="jumbotron">
+                
+                <img src="{{ request.host_url  }}/static/images/landing_page_image.jpg" >
+                <!-- <p style = "font-size: 35px; font-family: 'Times New Roman', Times, serif; text-align: center; color: grey;"> STRAIGHT 2020 - Annual Conference of SPOSI  </p> -->
+            </div>
+
+
+                
+                <p style = "font-size: 13px;width: 650px" > Dear : Dr. {{ name }}, 
+                    <br/> <br/> On behalf of the Organising Committee and SPOSI,  we extend our warm welcome to STRAIGHT 2020, the First Annual Virtual Conference of SPOSI.
+                    
+                    <br/><br/> 
+                    You may visit the conference site from https://sposi.urbanedge.co.in/login
+                    <br/>
+                    Your email id : {{ email }}
+                    <br/>
+                    Password : {{ password }} <br/> 
+
+                </p>
+                <p style = "font-size: 13px;">For a better experience , visit the conference on a desktop / laptop.</p>
+                <p style = "font-size: 13px;">Once you are in the scientific hall, ensure that you unmute the video and play.</p>
+                <p style = "font-size: 13px;">Day 1: The event starts @ 2:30 pm on 12/Dec/2020, Saturday </p>
+                <p style = "font-size: 13px;">Day 2: The event starts @ 9:00 am on 13/Dec/2020, Sunday</p>
+                <p style = "font-size: 13px;">Want to watch the event on YouTube or Facebook>   
+                    <a href="https://www.facebook.com/" target="_blank"> Click here</a>
+                </p>
+
+                <p style = "font-size: 13px;">For any assistance,  please feel free to contact us on ‭+91 99528 91920‬ </p>
+                <p style = "font-size: 13px;">Looking forward to seeing you @ STRAIGHT 2020.</p>
+                <br>
+                <p style = "font-size: 18px;">Org. Committee <br/>
+                    STRAIGHT 2020
+                </p>
+
+
+
+
+          
+
+           
+
+        </div>
+    </body>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- plugin for jquery validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"> </script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</html>
+

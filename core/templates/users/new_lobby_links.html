@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title></title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="\static\css\mobile_view.css">
+      <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">   
+      <style type="text/css">
+
+        body#lobby  {
+          background-image: url("/static/images/background/Lobby_V1.jpg");
+          background-repeat: no-repeat;
+          background-size: 100%;
+          background-color: #010424;
+          background-attachment: fixed;
+          }
+
+
+          .msg {
+              position: absolute;
+              left: 30%;
+              background: #0953a3;
+              color: #fff;
+              width: 50%;
+              top: calc(100vw * 0.40);
+              font-size: 20px;
+              padding: 10px;
+          }
+
+
+          .btn-primary {
+               color: #fff;
+               outline: 0;
+               border: none;
+          }
+          
+          #lobby_content
+          {
+            position: absolute;
+            top:calc(77vw * 0.2);
+            left:calc(104vw * 0.50);
+          }
+          #lobby_content_sir_duke_elders_hall
+          {
+            position: absolute;
+            top:calc(81vw * 0.2);
+            left:calc(75vw * 0.50);
+          }
+          #lobby_content_kanski_hall
+          {
+            position: absolute;
+            top:calc(114vw * 0.2);
+            left:calc(23vw * 0.50);
+          }
+          #lobby_content_paymen_hall
+          {
+            position: absolute;
+            top:calc(112vw * 0.2);
+            left:calc(150vw * 0.50);
+          }
+          #lobby_content .ang
+          {
+            font-size: 20px;
+            color: #726b6d;
+            text-decoration: none;
+          }
+
+          .btn-primary
+          {
+            background-color: transparent;
+            outline: 0;
+            border: none;
+          }
+          a:hover {
+            color: white;
+          }
+          .top
+              {
+                width: 100%;
+                height: calc(100vw * 0.165);
+                position: relative;
+              }
+
+
+
+
+      </style>
+   </head>
+   <body id="lobby">
+{% set base_user = session.get('user') %}
+  <div class="container-fluid">
+
+                <hr>
+               
+            </div>
+
+<div class="top">
+</div> 
+ <div id="lobby_content">
+    <a  class="ang"  href="/session/2021-05-13/Demo%20-%20I" class="btn btn-lg btn-primary" ><h5 class="text-left" style="
+    display: inline-block;
+    width: calc(100vw * 0.12);
+"></h5></a>
+    
+ 
+    <!-- <h5 class="text-left" >
+     <a class="ang"  href="{{url_for('sessions.Programsheet')}}" class="btn btn-lg btn-primary">
+        ↑ SCIENTIFIC PROGRAM</a>
+     </h5>
+    
+     <h5 class="text-left" ><a  class="ang" href="{{ url_for('user.HelpDesk')}}"  class="btn btn-lg btn-primary">
+        →  HELP DESK </a>
+     </h5> -->
+   
+  </div>
+  <div id="lobby_content_sir_duke_elders_hall">
+    <a  class="ang"  href="/session/2021-05-13/Demo%20-%20II" class="btn btn-lg btn-primary"  ><h5 class="text-left" style="
+    display: inline-block;
+    width: calc(100vw * 0.12);
+"></h5></a>
+    </h5>
+  </div>
+  <div id="lobby_content_kanski_hall">
+     <a  class="ang"  href="/session/2021-05-13/Demo%20-%20III" class="btn btn-lg btn-primary"  ><h5 class="text-left" style="
+    display: inline-block;
+    width: calc(100vw * 0.12);
+"></h5></a>
+  </div>
+  <div id="lobby_content_paymen_hall">
+    <a  class="ang"  href="/session/2021-05-13/Demo%20-%20IV" class="btn btn-lg btn-primary"
+       ><h5 class="text-left" style="
+    display: inline-block;
+    width: calc(100vw * 0.12);
+"></h5></a>
+    </h5>
+  </div>
+
+<div id="lobby_content_program_sheet">
+    <a  class="ang"  href="/programsheet" class="btn btn-lg btn-primary" ><h5 class="text-left" style="
+    display: inline-block;
+    width: calc(100vw * 0.12);
+    height: 10px;
+"></h5>programsheet</a>
+  </div>
+        
+   </body>
+  
+     <!-- <div class="msg">
+    <p>Dear {{base_user.prefix or "" }}{{ base_user.full_name or ""  }},
+<br />
+              Your log for Medical Council Credit Point has been recorded!</p>
+ </div>  -->
+</html>

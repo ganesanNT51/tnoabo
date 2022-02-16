@@ -1,0 +1,591 @@
+@charset "UTF-8";
+/* CSS Document */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+
+body
+{
+  font-family: Nunito Sans;
+}
+
+/* ------------Balaji Raj I------------ */			
+
+.centertable{
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lounge{
+  height: 700px;
+}
+
+.loungeicons {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: large;
+  color: white;  
+  background: #000;
+}
+
+.loungeicons:hove {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: large;
+  color: #000;  
+  background: #fff;
+}
+.mulberry{
+
+	background-color: #4a100c;
+
+}
+.activenow{
+
+	background-color: #00cef2;
+
+}
+.btn{
+	color: white !important;
+}
+/* .error{
+	color: red;
+	font-weight: bold;
+} */
+.neon {
+  color: #fff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 40px #0ff,
+    0 0 80px #0ff,
+    0 0 90px #0ff,
+    0 0 100px #0ff,
+    0 0 150px #0ff;
+}
+.color{
+	background-color: #ffb3b3;
+}
+
+h2{
+	padding-bottom: 10px;
+}
+
+body {
+	background-color: #f2f2f2;
+}
+.error {
+    color : red;
+    width:100%;
+    text-align: center;
+}
+
+table,td {
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black !important;
+  border-left: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  vertical-align: middle;  			  			  			  			  
+}			
+th
+{
+	background-color: #4B0082;
+	border: 1px solid black;
+	border-collapse: collapse;
+	color: white;
+	text-align: center;
+	vertical-align: bottom;
+	height: 15px;
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	position: sticky;
+  	top: 0; /* Don't forget this, required for the stickiness */
+  	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.timecell
+{
+	background: #797a7a;
+	color:#fff;	
+	position:sticky;
+	left: 0; 
+}
+
+/* text autoscroll in programsheet */
+.sitemessage {
+  /*display: inline-block;*/
+  color: red;
+
+  font-weight: 600;
+  font-size: 20px;
+  white-space: nowrap;
+  animation: floatText 15s infinite linear;
+  padding-left: 100%; /*Initial offset*/
+}
+.sitemessage:hover {
+  animation-play-state: paused;
+}
+@keyframes floatText {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ------------Nandhini------------ */
+
+
+/*----------- Lakshmi Priya---------------*/
+
+.title {
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color:grey;
+}
+
+.sub_title {
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color:black;
+}
+
+.info {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: black;
+}
+
+.card {
+    width:55rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.lbl {
+    font-family: Times new roman;
+    font-size: 125%;
+    color:black;
+}
+
+.padding_left {
+    margin-left: 15px;
+}
+
+.bg_color {
+    background-color:lightgray;
+}
+
+.navbar {
+    min-height: 25px;
+}
+
+.profile { 
+    font-size: 15px;
+}
+
+.message {
+    font-size: 35px;
+    color:grey;
+    text-align: center;
+    margin-top: 50px;
+    
+}
+
+h5 {
+    margin-top: 5px;
+    padding : 5px;
+    margin-left: 10px;
+}
+
+header {
+    position: relative;
+    background:#22242A;
+    padding : 20px;
+    width : 100%;
+    height : 50px;
+}
+
+.right_area {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  padding: 5px;
+}
+
+.right_area a{
+  color: white;
+  text-transform: uppercase;
+}
+.left_area h3 {
+    color :#fff;
+    margin-left: 32px;
+    text-transform: uppercase;
+    font-size: 22px;
+    margin-top: -30px;
+}
+
+.left_area span {
+    color : #1DC4E7;
+}
+
+.header_btn { 
+    padding : 3px;    
+    color: red;
+    background:#19B3D3;
+    text-decoration: None;
+    float : right;
+    margin-top: -30px;
+    margin-right: 40px;
+    border-radius: 2px;
+    font-size : 15px;
+    font-weight: 600;
+    color : #fff;
+    transition : 0.5s;
+    transition-property: background;
+}
+
+.logout_btn:hover {
+    background: #0D9DBB;
+}
+
+.sidebar { 
+    background: #2F323A;
+    z-index : 1000;
+    /* margin-top: px; */
+    padding-top: 30px;
+    position : fixed;
+    left : 0;
+    width : 350px;
+    height : 100%; 
+}
+
+.sidebar .profile_pic {
+    width : 100px;
+    height : 100px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.sidebar h4 {
+    color : #ccc;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    color : #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    transition : 0.5s;
+    transition-property: background ;
+}
+
+.sidebar a:hover {
+    background: #19B3D3;
+}
+
+.sidebar i {
+    padding-right: 10px;
+}
+
+label #sidebar_btn {
+    z-index : 1;
+    color : #fff;
+    position: fixed;
+    cursor: pointer;
+    left:20px;
+    font-size: 20px;
+    margin: -10px;
+    transition: 0.5s;
+    transition-property: color;
+
+}
+
+label #sidebar_btn:hover { 
+    color: #19B3D3;
+}
+
+#check:checked ~ .sidebar {
+    left : -300px;
+}
+
+#check:checked ~ .sidebar a span {
+    display: none;
+}
+
+#check:checked ~ .sidebar a {
+    font-size: 22px;
+    margin-left: 270px;
+    width : 80px;
+} 
+
+#check {
+    display: none;
+}
+
+.content {
+    margin-left: 400px;
+}
+
+.text_box_width {
+    width:300px;
+}
+
+.edit_profile_card {
+    width : 65rem;
+    margin-top: 50px;
+}
+
+/* ----------Ganesan-------------------- */
+
+/*img {
+	border-radius: 50%;
+	-webkit-transition: -webkit-transform .8s ease-in-out;
+			transition:         transform .8s ease-in-out;
+  }
+  img:hover {
+	-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
+  }
+*/
+
+ body {
+    margin: 0;
+    padding: 0;
+    max-height: 100%;
+  }
+  .column > div {
+    border: 1px solid blue;
+    min-height: 150px;
+  }
+  
+ /* a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+  
+  a:hover {
+    background-color: #ddd;
+    color: black;
+  }*/
+  
+  .previous {
+    background-color: #f51111;
+    color: black;
+  
+  }
+  
+  .next {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .round {
+    border-radius: 50%;
+  } 
+
+
+
+/*https://fivera.net/create-mac-style-dock-menu-css-example/*/
+
+#home_quicklinks {
+    padding: 20px 0;
+    text-align: center;
+}
+a.quicklink.link1 {
+    background: #fc6719;
+}
+a.quicklink {
+    display: inline-block;
+    width: 302px;
+    height: 173px;
+    position: relative;
+    margin: 90px 30px;
+}
+a.quicklink .ql_caption {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.outer {
+    display: table;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    border-spacing: 0px;
+    padding: 0px;
+}
+.inner {
+    display: table-cell;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    border-spacing: 0px;
+    padding: 0px;
+}
+a.quicklink .ql_caption h2 {
+    margin: 0px;
+    padding: 0px;
+    text-transform: uppercase;
+    line-height: 1.46em;
+    color: #fff;
+}
+a.quicklink.link1 .ql_top {
+    border-bottom-color: #fc6719;
+}
+a.quicklink.link1 .ql_bottom {
+    border-top-color: #fc6719;
+}
+
+
+.ql_top {
+    bottom: 173px;
+    border-bottom: 89px solid #ccc;
+}
+.ql_bottom {
+    top: 173px;
+    border-top: 89px solid #ccc;
+}
+.ql_top, .ql_bottom {
+    position: absolute;
+    left: 0px;
+    width: 0px;
+    border-left: 151px solid transparent;
+    border-right: 151px solid transparent;
+}
+
+a.quicklink.link2 {
+    background: #3341ec;
+}
+a.quicklink.link2 .ql_top {
+    border-bottom-color: #3341ec;
+}
+a.quicklink.link2 .ql_bottom {
+    border-top-color: #3341ec;
+}
+
+
+a.quicklink.link3 .ql_top {
+    border-bottom-color: #ec3333;
+}
+a.quicklink.link3 .ql_bottom {
+    border-top-color: #ec3333;
+}
+a.quicklink.link3 {
+    background: #ec3333;
+}
+a.quicklink {
+    font-size: 36px;
+    font-weight: 500;
+    text-decoration:none;
+}
+.hexagon {
+  position: relative;
+  width: 300px; 
+  height: 173.21px;
+  margin: 86.60px 0;
+  background-image: url(http://csshexagon.com/img/meow.jpg);
+  background-size: auto 334.8632px;
+  background-position: center;
+  box-shadow: 0 0 20px rgba(0,128,192,0.6);
+  border-left: solid 5px #4a401c;
+  border-right: solid 5px #4a401c;
+}
+
+.hexTop,
+.hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 212.13px;
+  height: 212.13px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 38.93px;
+  box-shadow: 0 0 20px rgba(0,128,192,0.6);
+}
+
+/*counter transform the bg image on the caps*/
+.hexTop:after,
+.hexBottom:after {
+  content: "";
+  position: absolute;
+  width: 290.0000px;
+  height: 167.4315780649915px;
+  -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-83.7158px);
+  -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-83.7158px);
+  transform:          rotate(45deg) scaleY(1.7321) translateY(-83.7158px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit;
+}
+
+.hexTop {
+  top: -106.0660px;
+  border-top: solid 7.0711px #4a401c;
+  border-right: solid 7.0711px #4a401c;
+}
+
+.hexTop:after {
+  background-position: center top;
+}
+
+.hexBottom {
+  bottom: -106.0660px;
+  border-bottom: solid 7.0711px #4a401c;
+  border-left: solid 7.0711px #4a401c;
+}
+
+.hexBottom:after {
+  background-position: center bottom;
+}
+
+.hexagon:after {
+  content: "";
+  position: absolute;
+  top: 2.8868px;
+  left: 0;
+  width: 290.0000px;
+  height: 167.4316px;
+  z-index: 2;
+  background: inherit;
+}
+  
+
+.card
+{
+  background: rgba(52, 58, 64,0.95);
+  box-shadow: 5px 5px rgba(0,0,0,0.5);
+}
+
+
+
+
+.transparent_table
+{
+  background-color: #00000095
+}
+
+#white{
+color:white;
+}
+

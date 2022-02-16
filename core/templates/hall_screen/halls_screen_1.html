@@ -1,0 +1,97 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} Hall Screen {% endblock %}
+{% block content %}
+
+
+{% set badge_colors = ['','badge_blue','badge_yellow','badge_green','badge_red','badge_gray'] %}
+
+<style>
+  .table td , .table th  {
+    border-top: 1px solid#fff;
+  }
+  .table th
+  {
+    position: sticky;
+    top:0;
+  }  
+
+</style>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+  <div class="container-fluid">  
+    <div class="row  mt-5">
+      <div class="col-md-3 text-center">
+        <h3><a href="{{ url_for('sessions.Programsheet') }}" style="align-items: center;" title="program_sheet" class="btn btn-lg btn-primary" >
+          GO BACK TO PROGRAMSHEET <i class='fas fa-angle-right'></i> </a></h3>
+      </div>
+      <div class="col-md-6  text-center">
+        <!-- <img src="/static/images/background/inner_page_v2.jpg" style="height:75px;" class="img-fluid" alt="Responsive image"> -->
+      </div>
+      <div class="col-md-3 text-center">
+        <h3><a href="{{ url_for('user.Lobby') }}" style="align-items: center;" title="image" class="btn btn-lg btn-primary" >
+            GO BACK TO LOBBY <i class='fas fa-angle-right'></i> </a></h3>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-12 text-center mt-md-5">
+            <h4 class="sub_header"> <i class="fas fa-arrow-circle-left"></i> Previous</h4>
+            {% for d in prev_dates %}
+              <h4 class="sub_item">
+                  <a  href="{{ url_for('sessions.session_halls',s_date=d.date.strftime('%Y-%m-%d')) }}"><i class="fas fa-arrow-circle-left"></i> {{ d.date.strftime('%d-%b-%Y') }}</h4></a>
+            {% endfor %} 
+        </div>
+        <div class="col-md-8 col-sm-12 text-center mt-md-5">
+          <div class="row">
+
+          <div class="col-md-1 text-center">
+          </div>
+          <div class="col-md-10 text-center">
+            <h4 class="sub_header">{{ results[0].date.strftime('%Y-%m-%d') }}</h4>
+          </div>
+          <div class="col-md-1 text-center">
+            
+          </div>
+          <div class="col-12 text-center">
+
+          {% for p in results %}
+           
+
+          <div class="hall_badge {{ badge_colors[loop.index] }}">
+            <a  href="{{ url_for('sessions.session_by_date_hall',s_date=p.date.strftime('%Y-%m-%d'),s_hall=p.session_hall) }}">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="216px" height="232px" viewBox="0 0 216 232">
+              <path fill="#2B2B2B" d="M207,0C171.827,0.001,43.875,0.004,9.003,0c-5.619-0.001-9,3.514-9,9c0,28.23-0.006,151.375,0,169    c0.005,13.875,94.499,54,107.999,54S216,191.57,216,178V9C216,3.298,212.732,0,207,0z"/>
+          </svg>
+            <p class="title">HALL</p>
+            <p class="subtitle">
+                          {{ p.session_hall|upper}}</p>
+                       </a>   
+          </div>
+
+                <!-- <div class="col-md-6">
+                  <div class="jumbotron orange mt-md-5">
+                      <h4 class="text-center"><a  href="{{ url_for('sessions.session_by_date_hall',s_date=p.date.strftime('%Y-%m-%d'),s_hall=p.session_hall) }}">
+                          {{ p.session_hall|upper}}</a>
+                      </h4>
+                  </div>
+              </div> -->
+          {% endfor %} 
+          </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 col-sm-12 text-center mt-md-5">
+            <h4 class="sub_header">Upcoming <i class="fas fa-arrow-circle-right"></i> </h4>
+            {% for d in next_dates %}
+            <h4 class="sub_item">
+                  <a href="{{ url_for('sessions.session_halls',s_date=d.date.strftime('%Y-%m-%d')) }}">{{ d.date.strftime('%d-%b-%Y') }} <i class="fas fa-arrow-circle-right"></i> </h4></a>
+            {% endfor %} 
+        </div>
+     
+    </div>
+
+    
+  </div>
+  
+{% endblock %}

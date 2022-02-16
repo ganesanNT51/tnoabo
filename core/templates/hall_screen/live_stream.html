@@ -1,0 +1,538 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} Program Live {% endblock %}
+{% block style %}
+  <style type="text/css">
+    body  {
+      background-image: url("/static/images/background/hall2_v2.jpg");
+      /* background-image: url("/static/images/hall_screen/SPOSI_bg_Layout.jpg"); */
+      background-repeat: no-repeat;
+      background-size: 100%;
+      /* height: 80vh; */
+      background-color: #010424;
+      background-position: fixed;
+    }
+
+
+   
+    
+    .header
+    {
+      height: calc(100vw * 0.07);
+      position: relative;
+      margin-bottom:25px 
+    }
+
+    .header .head-content
+    {
+      position:absolute;
+      top:65%;
+      left: 67%;
+      transform: translate(-50%, -50%);
+      color:#3e3d9b;
+      width: 100%;
+     
+    }
+    .stitle {
+          line-height: 2.5;
+        }
+    .embed-responsive {
+      max-height:70vh;
+      background-color: white;
+    }
+    
+    .selected
+    {
+      background-color: darkred;
+      color: #fff;
+
+    }
+  </style>
+{% endblock %}
+{% block content %}
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+  <div class="container-fluid">  
+    <div class="row">
+      <div class="col-md-9 col-sm-12" id="session_header_html">
+        
+        {% for s in results %}
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 text-center header">
+                      <div class="head-content" id="title_time">
+                        <h2 id="title">{{ s.session_title|upper}}</h2>
+                          {% if s.session_subtitle %} 
+                              <h5 id="sub_title">{{ s.session_subtitle|upper}} </h5>
+                          {% endif %}
+                          <span> {{ s.date.strftime('%d-%b-%Y') }} - Hall : {{ s.session_hall }} </span>
+                      </div>
+                    </div>
+                </div>   
+            </div>
+        </header>
+        {% endfor %}
+    
+      </div>
+      <div class="col-md-3 col-sm-12">
+
+      </div>
+     </div> 
+    <div class="row">
+      <div class="col-md-9 col-sm-12">
+        <div class="row">
+          <div class="col-md-9 col-sm-12 offset-md-2 mb-3">
+            <div class="embed-responsive embed-responsive-16by9 ml-md-5 mt-md-3">
+              {% if (results[0].live_stream) %}
+                <iframe src="{{results[0].live_stream}}" id="livestream" frameborder="0" allow='autoplay' autoplay allowfullscreen></iframe>
+              {% endif %}
+
+            </div>
+          </div>
+          <div class="col-md-10 col-sm-12 offset-md-2 text-center">
+            <div class="row" id="banner_div" style="display: none">
+              <div class="col-12 text-center">
+                <a target="_blank" href="#" id="banner_a">
+                  <img src="#" style="height:100px;" class="img-fluid" alt="Responsive image" id="banner_a_img">
+                </a>
+                <img src="#" style="height:100px;" class="img-fluid" alt="Responsive image" id="banner_img">
+              </div>
+            </div>
+            <!-- {% for s in results %}
+              <h4 class="text-white stitle">{{ s.session_subtitle or '' }}</h4>
+            {% endfor %} -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-12 pr-md-5 pl-md-0">
+        <div class="row">
+          <div class="col-12 pl-md-0">
+              <div class="bg-white comment form-group">
+                <div class="col-md-12 col-sm-12 chatbox text-left pt-1 pb-1  justify-content-center align-self-center">
+                  <b class="h5 my-2" id="participant_name">Post your message here</b>
+                </div>
+                <div class="msg_history" id="msg_history">
+                  
+                </div>
+                <div class="alert alert-success text-center" id="successMessage" style="display: none;" >
+                </div>
+                <div class="type_msg">
+                  <div class="input_msg_write">
+                    <input type="text" id="comments" name="comments" class="write_msg" placeholder="Type a message" />
+                    <button id="msg_send_btn" class="msg_send_btn" type="button" ><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="col-12 text-center">
+            <a href="{{ url_for('user.Lobby') }}?user_id={{ encrypted_user_id }}" style="align-items: center;color:#f7d5a2" title="image" class="btn btn-lg btn-primary">
+             <b> GO BACK TO LOBBY </b><i class='fas fa-angle-right'></i> </a>
+          </div>
+        </div>
+      </div>
+    </div>
+   <!--  <div class="row" id="banner_div">
+      <div class="col-12 text-center">
+        <img src="#" style="height:100px;padding-right:15%;" class="img-fluid" alt="Responsive image" id="banner_img">
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-6 offset-md-2 text-center"> 
+        <div id="option_html"></div>
+      </div>
+
+    </div>
+    
+              
+  </div>
+
+ <div class="footer">
+            {{ Helper.footer_text() }}
+  </div> 
+    <!-- </form> -->
+{% endblock %}
+{% block bottomscript %}
+<script type="text/javascript" charset="utf-8">
+  var socket;
+  var session_id = "{{ session_id }}";
+  var sa_id = "{{ sa_id }}";
+  var user_id = "{{ user_id }}";
+  var title = $('#title').text()
+  var g_date_time = $('#date_time').text()
+  var option_id = 0;
+  var s_date = "{{ s_date }}";
+  var s_hall = "{{ s_hall }}";
+  var banner_id = 0;
+
+  var baseUrl = document.location.protocol+'//' + document.domain + ':' + location.port;
+  var msg_last_dt = "";
+    
+      // window.addEventListener('beforeunload', function(event) {
+      //   getclosetime(session_id,user_id);
+      // });
+      // window.addEventListener('unload', function(event) {
+      //   getclosetime(session_id,user_id);
+      // });
+
+      function getclosetime(session_id,user_id) {
+         $.ajax({
+                      type: 'POST', // <-- get method of form
+                      url: baseUrl + '/close_time/' + session_id + '/' + user_id, // <-- get action of form
+                      data: {'session_id':session_id,'user_id':user_id}, // <-- serialize all fields into a string that is ready to be posted to your PHP file
+                      dataType: 'json',
+                      // beforeSend: function(){
+                      // },
+                      success: function(data){
+                      },                             
+          });   
+  }
+  // alert(baseUrl);
+  $(document).ready(function(){
+    getbanner()
+    getcomments()
+    getlastcomments()
+    get_header_title();
+    // get_debate();
+    $("#btnSave").attr('disabled',true);
+
+    $(".option").click(function(e)
+       {
+         //e.preventdefault();
+         $(".option").removeClass('selected');
+         $(this).addClass('selected')
+         option_id =  $(this).attr('data-option-id');
+         //alert(option_id);
+        $("#user_option").val(option_id);
+        $("#btnSave").attr('disabled',false);
+       
+       })
+
+       $("#btnSave").click(function(e)
+       { 
+            save();
+       })
+
+       $(document).on("click", "#btnSave" , function() {
+           save();
+       });
+
+      $(document).on("click", ".option" , function(e) 
+      {
+        //e.preventdefault();
+        $(".option").removeClass('selected');
+        $(this).addClass('selected')
+        option_id =  $(this).attr('data-option-id');
+        //alert(option_id);
+        $("#user_option").val(option_id);
+        $("#btnSave").attr('disabled',false);
+      
+      })
+
+      $(document).on("click", "#btnSave" , function() {
+           save();
+      });
+
+
+      $('#comments').keypress(function(e) {
+          var code = e.keyCode || e.which;
+          if (code == 13) {
+              // alert("enter to message")
+              text = $('#comments').val();
+              $('#comments').val('');
+              send_sess_chat(text,session_id,user_id);
+          }
+      });
+
+      $('#msg_send_btn').click(function(e) {
+        // alert("click sending message")
+        if($('#comments').val())
+        {
+          text = $('#comments').val();
+          $('#comments').val('');
+          send_sess_chat(text,session_id,user_id);
+        } 
+      });
+  });
+
+  function getbanner() {
+          $.ajax({
+
+                  type: 'POST', // <-- get method of form
+                  url: baseUrl + '/get_ads_banner', // <-- get action of form
+                  data: {'banner_id':banner_id,'session_id':session_id}, // <-- serialize all fields into a string that is ready to be posted to your PHP file
+                  dataType: 'json',
+                  success: function(d){
+                    data = d.data;
+                    count = d.count;
+                    if(data)
+                    {
+                      $("#banner_div").show();
+                      banner_id = data.banner_id;
+                      if(data.url)
+                      {
+                        $("#banner_img").hide()
+                        $("#banner_a").show()
+                        $("#banner_a_img").attr("src",data.banner_path);
+                        $("#banner_a").attr("href",data.url);  
+                      }
+                      else
+                      {
+                        $("#banner_a").hide()
+                        $("#banner_img").show()
+                        $("#banner_img").attr("src",data.banner_path);
+                      }
+                      callbanner5sec();
+                    }
+                    else
+                    {
+                      banner_id=0;
+                      if(count == 0)
+                      {
+                        callbanner5sec();
+                      }
+                      else
+                      {
+                        getbanner();
+                        $("#banner_div").hide();
+                      }
+                    }
+                  
+                  }, 
+                                             
+          });   
+  } 
+
+
+  function send_sess_chat(text,session_id,user_id)
+  {
+
+      
+              $.ajax({
+                      type: 'POST', // <-- get method of form
+                      url: baseUrl + '/send_sess_chat', // <-- get action of form
+                      data: {msg: text,session_id:session_id,user_id:user_id},
+                      dataType: 'json',
+                      // async:false,
+                      // beforeSend: function(){
+                      // },
+                      success: function(data){
+
+                       if(data.status == 1)
+                        {
+                          $("#successMessage").show();
+                          $("#successMessage").html("Your chat will appear in about a minute.")
+                          TimeoutsuccessMessage();
+                            
+                          // $("#msg_history").append(data.html)
+                          // $('#msg_history').animate({ scrollTop: $('#msg_history')[0].scrollHeight }, 600);  
+                        }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                          //location.reload();  
+                        }                      
+              });  
+  }
+
+
+  function getlastcomments()
+  {
+      $.ajax({
+                      type: 'POST', // <-- get method of form
+                      url: baseUrl + '/receved_message_by_date_hall', // <-- get action of form
+                      data: {'s_date':s_date,'s_hall':s_hall,'my_user_id':user_id,'msg_last_dt':msg_last_dt}, // <-- serialize all fields into a string that is ready to be posted to your PHP file
+                      dataType: 'json',
+                      // async:false,
+                      // beforeSend: function(){
+                      // },
+                      success: function(data){
+                         if(data.status == 1)
+                          {
+                            if(msg_last_dt != data.msg_last_dt)
+                            {
+                                $("#msg_history").append(data.html)
+                                $('#msg_history').animate({ scrollTop: $('#msg_history')[0].scrollHeight }, 600);  
+                                msg_last_dt = data.msg_last_dt;
+                            }
+                          }
+                          callback3sec();
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                          //location.reload();  
+                        }                      
+              });
+  }
+
+  function getcomments() {
+    // result =  cus_ajax("GET","http://127.0.0.1:5000/contact_index_ajax","","json");
+         $.ajax({
+                      type: 'POST', // <-- get method of form
+                      url: baseUrl + '/getcomment_by_date_hall/' + s_date +'/'+ s_hall +'/'+user_id, // <-- get action of form
+                      // data: {'name':'test'}, // <-- serialize all fields into a string that is ready to be posted to your PHP file
+                      dataType: 'json',
+                      async:false,
+                      // beforeSend: function(){
+                      // },
+                      success: function(data){
+                        if(data.status == 1)
+                        {
+                          $("#msg_history").append(data.html)
+                          $('#msg_history').scrollTop($('#msg_history')[0].scrollHeight);
+                        }
+                        msg_last_dt = data.msg_last_dt;
+                      },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                          //location.reload();  
+                        }                      
+          });   
+  }
+  var html_block ="";
+  function get_debate()
+  {
+    $.ajax({
+          url: baseUrl + '/get_debate/' +session_id,
+           type: 'POST',
+           dataType: 'json',
+           async: false,
+           data: {},
+           success: function(data){
+               if(data.status == 1)
+               {
+                 if(html_block != data.html)
+                 {
+                    html_block = data.html
+                    $("#option_html").html(html_block);
+                    $("#btnSave").attr('disabled',true);
+                 }
+                    
+               }
+               callback1sec();
+             // alert("hi");  
+           }            
+       })
+  }
+
+
+  function save() {
+   // alert("test");   
+   ShowProgress();
+   $("#alert_success").hide();
+   $("#alert_error").hide();
+   $.ajax({
+           url: baseUrl + '/save_option/'+ session_id,
+           type: 'POST',
+           dataType: 'json',
+          //  async: false,
+           data: {'user_id': user_id,'option_id': option_id},
+           beforeSend: function(){
+                          ShowProgress();
+                     },
+           success: function(d){
+             var data = d.data;
+             StopProgress();
+             if(d.status==1)
+               {
+   
+                 $("#alert_success").show();
+                 $("#lblSuccess").text( d.msg )
+               //   $("#showOptions").html('');
+                 $("#btnSave").attr('disabled',true);
+                 $(".option").removeClass('selected');
+                 TimeoutSuccessMsg();
+               }
+             else
+             {
+               $("#alert_error").show();
+               $("#lblError").text( d.msg );
+               // $("#showOptions").html('');
+               $("#btnSave").attr('disabled',true);
+               $(".option").removeClass('selected');
+               TimeoutErrorMsg();
+             }
+             }            
+           })
+   }
+   function ShowProgress()
+   {
+   
+//   $('#btnSave').html('Please wait...');
+   $("#btnSave").attr('disabled',true);
+   }
+   
+   function StopProgress()
+   {
+//   $('#btnSave').html('SAVE');
+   $("#btnSave").attr('disabled',true);
+   }
+
+   var html_header = "";
+   var stream_link = "";
+   function get_header_title()
+   {
+      $.ajax({
+            url: baseUrl + '/get_header_title/'+s_date+'/'+s_hall,
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            data: {},
+            success: function(data){
+                if(data.status == 1)
+                {
+                  if(html_header != data.html)
+                  {
+                      html_header = data.html
+                      $("#session_header_html").html(html_header);
+                      session_id = data.session_id;
+                      // s_date = data.s_date;
+                  }
+                  if(stream_link !=data.stream)
+                  {
+                    stream_link = data.stream;
+                    $("#livestream").attr("src",data.stream);
+                  }
+
+                      
+                }
+                callback2sec();
+            }            
+        })
+   }
+
+function callback1sec()
+ {
+     setTimeout(function(){ get_debate() }, 60000);
+ }
+
+ function callback2sec()
+ {
+     setTimeout(function(){ get_header_title() }, 60000);
+ }
+
+ function TimeoutSuccessMsg() {
+                 setTimeout(function(){  $("#alert_success").hide(); }, 5000);
+               }
+ function TimeoutErrorMsg() {
+                 setTimeout(function(){  $("#alert_error").hide(); }, 5000);
+               }
+
+function TimeoutsuccessMessage() {
+        setTimeout(function(){  $("#successMessage").hide(); }, 5000);
+}
+
+
+               
+function callback3sec() 
+{
+    setTimeout(function(){ getlastcomments() }, 60000);
+}
+
+function callbanner5sec()
+{
+    setTimeout(function(){ getbanner() }, 60000);
+}
+                
+</script>
+{% endblock %}

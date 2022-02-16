@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Register</title>
+      <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+      <!-- Custom fonts for this template-->
+      <link rel="stylesheet" type="text/css" href="{{ ('static/vender_1/fontawesome-free/css/all.min.css') }}">
+      <link
+         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+         rel="stylesheet">
+         <link rel="stylesheet" type="text/css" href="{{ ('static/css/bootstrap.min.css') }}">
+         <link rel="stylesheet" type="text/css" href="{{ ('static/css/style.css') }}">
+   </head>
+   <body class="bg-gradient-primary">
+      <div class="container">
+         <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+               <!-- Nested Row within Card Body -->
+               <div class="row  d-sm-flex flex-row-reverse">
+                  <div class="col-lg-6">
+                     <div class="p-5">
+                        <div class="text-center">
+                           {% for mesg in get_flashed_messages() %}
+                           <div id="successMessage" class="alert alert-danger" style="color: red; text-align: center;">
+                             <h4>{{ mesg }}</h4>
+                           </div>
+                             {% endfor %}
+                           <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        </div>
+                        <form  action="{{ url_for('user.Post_register') }}" method="POST" id="registration_form">
+                           <div class=" row">
+                              <div class="col-sm-4 form-group">
+                                 <select class="form-control w-100" id="prefix" name = "prefix" >
+                                    <option value = "" id = "select"> Select  Prefix</option>
+                                    <option value = "Mr."> Mr. </option>
+                                    <option value = "Mrs."> Mrs. </option>
+                                    <option value = "Dr." selected> Dr. </option>
+                                    <option value = "Ms."> Ms. </option>
+                                    <option value = "Prof."> Prof. </option>
+                                    <option value = "Others"> Others </option>
+                                 </select>
+                              </div>
+                              <div class="col-sm-8 form-group">
+                                 <input type="text" name="name" id="name" class="form-control w-125" placeholder="Enter Full Name" value = ""> 
+                                 <span class="error" name="nameerror" id="nameerror"></span>  
+                              </div>
+                           </div>
+                           <!-- first row end -->
+                           <div class="form-group row">
+                              <div class="col-sm-12">
+                                 <input type="email" name="email_id" id="email_id" value = "" class="form-control" placeholder = "Your Email">
+                                 <span class="error" name="email_iderror" id="email_iderror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12"> 
+                                 <input type = "text"  maxlength="15" name="mobile" id="mobile" value = "" class="form-control" onkeypress="return isNumberKey(event)" placeholder = "Enter Mobile Number">
+                                 <span class="error" name="mobileerror" id="mobileerror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                    <input type = "text" name="affiliation" id="affiliation" value = "" class="form-control" placeholder = "Enter Affiliation">
+
+                                    <span class="error" name="affiliationerror" id="affiliationerror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                    <input type = "number" name="mcn_number" id="mcn_number" value = "" class="form-control" placeholder = "Enter Medical Council Number">
+
+                                    <span class="error" name="mcn_number" id="mcn_number"></span> 
+                              </div>
+                           </div>
+
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                 <select class = "form-control w-100" id = "mc_state" name = "mc_state">
+                                    <option value = "" id = "select">Select Medical Council State</option>
+                                    {% if states %}
+                                    {% for state in states %}
+                                    <option value = "{{state.state_name}}"> {{state.state_name}} </option>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                 </select>
+                              </div>
+                           </div>
+
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                 <input type = "password" name="password" id="password" value = "" class="form-control w-100" placeholder = "Enter the Password">
+                                 <span class="error" name="passworderror" id="passworderror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                 <input type = "password" name="confirm_password" id="confirm_password" value = "" class="form-control w-100" placeholder = "Re-enter the Password">
+                                 <span class="error" name="confirm_passworderror" id="confirm_passworderror"></span> 
+                              </div>
+                           </div>
+
+                           
+
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                 <select class = "form-control w-100" id = "state" name = "state">
+                                    <option value = "" id = "select">Select State</option>
+                                    {% if states %}
+                                    {% for state in states %}
+                                    <option value = "{{state.state_name}}"> {{state.state_name}} </option>
+                                    {% endfor %}
+                                    {% endif %}
+                                 </select>
+                              </div>
+                           </div>
+
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                 <select class = "form-control w-100" id = "country" name = "country">
+                                    <option value = "" id = "select">Select Country</option>
+                                    {% if countries %}
+                                    {% for country in countries %}
+                                    <option value = "{{country.country_id}}"> {{country.name}} </option>
+                                       {% if country.name == "India" %}
+                                            <option value = "{{country.country_id}}" selected> {{country.name}} </option>
+                                       {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+
+                                 </select>
+                              </div>
+                           </div>
+
+                           
+
+                           
+                           <div class = "text-center">
+                              <button type = "submit" id = "submit_btn" class="btn btn-primary"> Submit </button>
+                              <hr>
+                              <a  href="{{ url_for('user.Login') }}">
+                              Already registered ? Click here to login</a>
+                           </div>
+                        </form>
+                        <hr>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <img src="static/images/sign_up_page.jpg" width="100%" height="100%">
+                </div>
+                
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Bootstrap core JavaScript-->
+      <script  type= "text/javascript"  src="{{ ('../static/js/jquery.min.js')}}"></script>
+      <script  type= "text/javascript"  src="{{ ('../static/js/jquery.validate.min.js')}}"></script>
+      <script  type= "text/javascript"  src="{{ ('../static/js/bootstrap.min.js')}}"></script>
+      
+         <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 20000);
+         </script>
+         
+      <script type="text/javascript">
+         $(document).ready(function(){
+             jQuery('#country').on('change', function(){  
+                 country_id = $("#country").val()
+                 select_states() 
+             });
+         
+             $("#submit_btn").click(function() {
+                 validate_register_form()
+                 $("#alert-success").hide()
+                 $("#alert-danger").hide()
+             })
+            
+
+         
+   
+         })
+         
+
+         function isNumberKey(evt){
+               var charCode = (evt.which) ? evt.which : evt.keyCode
+               if (charCode > 31 && (charCode < 48 || charCode > 57))
+                  return false;
+               return true;
+            }
+                  
+         function select_states()
+         {
+             $.ajax({
+                 type: 'GET', // <-- get method of form
+                 url: "http://127.0.0.1:5001/states_dropdown_1/"+country_id, // <-- get action of form
+                 // <-- serialize all fields into a string that is ready to be posted to your PHP file
+                 dataType: 'json',
+                 async : true,
+            
+                 success: function(data){
+                     if(data.status == 1)
+                     {
+                         $('#state')
+                             .find('option')
+                             .remove()
+                             .end()
+                             .append(data.html)
+                             ;
+                         // $("#state").val(state_id)    
+                     }
+                 },
+         
+                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                     //location.reload();  
+                 }  
+             })
+         }
+         
+         function validate_register_form()
+         {
+         
+             errorclass : 'error',
+         
+             $("#registration_form").validate({
+                
+                 rules : {
+                     prefix : "required",
+                     name : "required",
+                     email_id : {
+                         required : true,
+                         email : true
+                     },
+                     mobile : {
+                         required : true,
+                         minlength : 1,
+                         maxlength : 15
+                     },
+                     affiliation : "required",
+                     mcn_number : "required",
+                     mc_state : "required",
+                     state : "required",
+                     country : "required",
+                     password : "required",
+                     confirm_password : "required",
+                 },
+         
+                 messages : {
+                     prefix : "Please select the Prefix",
+                     name : "Please enter the Name",
+                     email_id : {
+                         required : "Please enter the Email id",
+                         email : "Please enter valid Email Id"
+                     },
+                     mobile : {
+                         required : "Please enter Mobile number",
+                         maxlength : "Mobile number provided is too long"
+                     },
+                     affiliation : "Please enter Affiliation",
+                     mcn_number : "Please enter Medical Council Number",
+                     mc_state : "Please enter Medical Council State",
+                     state : "Please select the State",
+                     country : "Please select the Country",
+                     password : "Please enter the Password",
+                     confirm_password : "Please enter the Confirm Password",
+                 },
+                 highlight: function(element) {
+                     $(element).parent().addClass('error')
+                 },
+             
+                 unhighlight: function(element) {
+                     $(element).parent().removeClass('error')
+                 },
+         
+                 submitHandler: function(form) {
+                     form.submit();
+                 }
+             })
+                
+         }
+      </script>
+
+   </body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'backoffice/bo_layout.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+       <div class="row" style="height: vh100 !important;">
+      <div class="col-12 text-center mb-2">
+           <h2>User Commitment</h2>
+      </div>
+      </div> 
+  <table bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" style="padding:20px;" valign="top">
+                    <table align="center" bgcolor="#ffffff" border="1" cellpadding="0" cellspacing="0" style="border:1px solid #cccccc; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" width="640">
+                        <tr valign="middle">
+                            <td align="center" style="background-color:#ffffff;border:1px;line-height:0px;">
+                                <img alt="BOA 2021" border="0" height="auto" src="https://boa2021.urbanedge.co.in/static/images/login/Transactional_mailer_header2.jpeg" width="640"/>
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left" style="background-color:#ffffff;border:none; text-align:left; padding:20px 20px 0 20px">
+                                <hr/>
+                                        <p style="font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; font-size:18px; color:red;">
+                                    <b>Dear  {{ user[0].prefix or "" }} {{ user[0].full_name }}:</b>
+                                </p>
+                               
+                              
+                                <p style="font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; font-size:18px; color:red;">
+                                    <b>Your Final Commitments of BOA 2021 are below : </b>
+                                </p>
+
+                                <table id="tbl" width="100%"  cellspacing="0" cellpadding="0" style="border-collapse: collapse;   border: 1px solid #696969; ">
+                                    <thead>
+                                        <th style="border: 1px solid #696969;padding: 5px;" >Session</th>
+                                        <th style="border: 1px solid #696969;padding: 5px;">
+                                            Role
+                                        </th>
+                                        <th style="border: 1px solid #696969;padding: 5px;">
+                                            Topic - Duration
+                                        </th>
+                                     <th style="border: 1px solid #696969;padding: 5px;">Date | Time | Hall</th>
+                                    </thead>
+                                    <tbody>
+                                      {% for d in data %}
+                                            <tr>
+                                                <td style="border: 1px solid #696969;padding: 5px;">
+                                                    {{ d.session_title }}
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                   {{ d.role }}
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                   {{ d.topic or "" }} - {{ d.duration or ""}}
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                    {{ d.date.strftime('%d-%b-%Y') or ""  }} | {{ d.session_start_date_time.strftime('%H:%M')  or ""  }} - {{ d.session_end_date_time.strftime('%H:%M') or ""  }} | {{ d.session_hall or ""  }} 
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <hr/>
+                            </td>
+                        </tr>
+          </table>
+
+          <div class="row">
+            <div class="col-12">
+
+            </div>
+          </div>
+
+{% endblock %}
+
+
+    
+
+

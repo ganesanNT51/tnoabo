@@ -1,0 +1,61 @@
+<!--using html5 doctype -->
+<!doctype html>
+
+<!--using language attribute-->
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        
+    </head>
+
+    <body > 
+
+        <div class="container">
+            <div class="jumbotron">
+                <img src="{{ request.host_url  }}/static/images/login/logo.png" width="400px" height="auto" >
+                
+                <!-- <p style = "font-size: 35px; font-family: 'Times New Roman', Times, serif; text-align: center; color: grey;"> STRAIGHT 2020 - Annual Conference of SPOSI </p> -->
+            </div>
+
+            {% if name %}
+
+                <p style = "font-size: 25px;"> <b> Greetings from BOA! </b> </p>
+                <p style = "font-size: 13px;width: 650px" > Dear Dr. {{name}}, <br/>
+                Thank you for registering for STRAIGHT 2020, the First Virtual Annual Conferene of SPOSI, organised by Drashti Netralaya. <br/>
+                For your records, to login to the conference portal,  <br/>
+                Your user name :  {{ email }}  <br/>
+                Your Password :    {{ password }} <br/>
+                See you on 12/Dec/2020. </p>
+                <p style = "font-size: 13px;">
+                We will keep you posted on the latest updates and the scientific programs. <br/>
+                For queries,  please feel free to write to support@numerotec.com <br/>
+                Looking forward to host you with a great scientific feast. </p>
+                
+                <p style = "font-size: 15px;"> Regards, <br/>
+                 Dr.Shreya Shah </p>
+                
+
+                <br>
+
+
+            {% endif %}
+
+        </div>
+    </body>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- plugin for jquery validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"> </script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</html>
+

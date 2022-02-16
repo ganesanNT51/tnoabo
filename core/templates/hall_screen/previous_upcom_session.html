@@ -1,0 +1,69 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} Sessions {% endblock %}
+{% block content %}
+<style>	
+    body  {
+                    background-image: url("/static/images/background/inner_page_v2.jpg");
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    background-color: #010424;
+                    background-attachment: fixed;
+                    }
+	h1{
+		color:white;
+		text-align: center;
+	}
+
+    .orange {
+        background-color: #aa3b84;
+        color: #4e2882;
+        /* color: #fff; */
+        text-transform: uppercase;
+    }
+
+
+    .orange:hover {
+        background-color: #eca22f;
+    }
+    h1 a
+    {
+        color:#fff;
+    }
+
+    a:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+  </style>
+<div class="container-fluid p-5">
+    <br/>
+    <h1 class="text-center">
+        Sessions
+    </h1>
+    <div class="row">
+        
+    {% for s in results %}
+    
+        <div class="col-sm-6">
+            <div class="jumbotron orange mt-md-5">
+                <h1 class="text-center"><a  href="{{ url_for('sessions.session_by_date',s_date=s.date.strftime('%Y-%m-%d')) }}">
+                    {{ s.date.strftime('%d-%b-%Y')}}</a>
+                </h1>
+            </div>
+        </div>
+    {% endfor %} 
+</div>
+<div class = "row">
+    <div class="col-lg-12">
+        <div class="form-group"> 
+            <div class="col-md-7 offset-5">
+                <h3><a href="{{ url_for('user.Lobby') }}" style="align-items: center;" title="image" class="btn btn-lg btn-primary" >
+                      GO BACK TO LOBBY <i class='fas fa-angle-right'></i> </a></h3>
+         </div>
+       </div>
+    </div>
+</div>
+</div>
+  
+{% endblock %}

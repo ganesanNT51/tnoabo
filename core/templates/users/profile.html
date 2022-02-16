@@ -1,0 +1,193 @@
+{% extends 'users/base.html' %}
+
+{% block title %} {% endblock %}
+
+{% block style %}
+<!-- <style type="text/css">
+	body  {
+	  background-image: url("/static/images/background/confrence1.png");
+	  background-repeat: no-repeat;
+  	  background-size: cover;
+	  background-color: #cccccc;
+	}
+</style>
+ -->
+{% endblock %}
+
+{% block content %}
+
+
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-3 "></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Profile</h1>
+                            </div>
+                            <form id="profile_form" class="user"  action="{{ url_for('user.ProfilePost',user_id = user_id) }}" method="POST">
+                               
+                              <div class=" row">
+                                  <div class="col-sm-4 form-group">
+                                     <select class="form-control w-100" id="prefix" name = "prefix" >
+                                        <option value = "" id = "select"> Select  Prefix</option>
+                                        <option value = "Mr."> Mr. </option>
+                                        <option value = "Mrs."> Mrs. </option>
+                                        <option value = "Dr." selected> Dr. </option>
+                                        <option value = "Ms."> Ms. </option>
+                                        <option value = "Prof."> Prof. </option>
+                                        <option value = "Others"> Others </option>
+                                     </select>
+                                  </div>
+
+
+                                  <div class="col-sm-8 form-group">
+                                     <input type="text" name="name" value="{{ user_data.full_name|default('') }}" id="name" class="form-control w-125" placeholder="Enter Full Name" value = ""> 
+                                     <span class="error" name="nameerror" id="nameerror"></span>  
+                                  </div>
+                           </div>
+                           <!-- first row end -->
+                           <div class="form-group row">
+                              <div class="col-sm-12">
+                                 <input type="email" name="email_id" id="email_id" value = "" class="form-control" placeholder = "Your Email">
+                                 <span class="error" name="email_iderror" id="email_iderror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12"> 
+                                 <input type = "text"  maxlength="15" name="mobile" id="mobile" value = "" class="form-control" onkeypress="return isNumberKey(event)" placeholder = "Enter Mobile Number">
+                                 <span class="error" name="mobileerror" id="mobileerror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                    <input type = "text" name="affiliation" id="affiliation" value = "" class="form-control" placeholder = "Enter Affiliation">
+
+                                    <span class="error" name="affiliationerror" id="affiliationerror"></span> 
+                              </div>
+                           </div>
+                           <div class="form-group row">
+                              <div class="col-sm-12" >
+                                 <select class = "form-control w-100" id = "country" name = "country">
+                                    <option value = "" id = "select">Select Country</option>
+                                    {% if countries %}
+                                    {% for country in countries %}
+                                    <option value = "{{country.country_id}}"> {{country.name}} </option>
+                                       {% if country.name == "India" %}
+                                            <option value = "{{country.country_id}}" selected> {{country.name}} </option>
+                                       {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+
+                                 </select>
+                              </div>
+                           </div>
+                              
+                                <input type="submit" name="submit" id="submit_btn"  value="Save" class="btn btn-primary btn-user btn-block">
+                                
+                                <hr>
+                                
+                            </form>
+                            
+                           
+                        </div>
+                    </div>  <!-- col-6 end -->
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+      <script  type= "text/javascript"  src="{{ ('../static/js/jquery.min.js')}}"></script>
+      <script  type= "text/javascript"  src="{{ ('../static/js/jquery.validate.min.js')}}"></script>
+      <script  type= "text/javascript"  src="{{ ('../static/js/bootstrap.min.js')}}"></script>
+      
+         <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 20000);
+         </script>
+         
+      <script type="text/javascript">
+         $(document).ready(function(){
+             jQuery('#country').on('change', function(){  
+                 country_id = $("#country").val()
+             });
+         
+             $("#submit_btn").click(function() {
+                 validate_profile_form()
+                 $("#alert-success").hide()
+                 $("#alert-danger").hide()
+             })
+            
+
+         
+   
+         })
+         
+
+         function isNumberKey(evt){
+               var charCode = (evt.which) ? evt.which : evt.keyCode
+               if (charCode > 31 && (charCode < 48 || charCode > 57))
+                  return false;
+               return true;
+            }
+                  
+
+         
+         function validate_profile_form()
+         {
+         
+             errorclass : 'error',
+         
+             $("#profile_form").validate({
+                
+                 rules : {
+                     prefix : "required",
+                     name : "required",
+                     email_id : {
+                         required : true,
+                         email : true
+                     },
+                     mobile : {
+                         required : true,
+                         minlength : 1,
+                         maxlength : 15
+                     },
+                     affiliation : "required",
+                     country : "required",
+                 },
+         
+                 messages : {
+                     prefix : "Please select the Prefix",
+                     name : "Please enter the Name",
+                     email_id : {
+                         required : "Please enter the Email id",
+                         email : "Please enter valid Email Id"
+                     },
+                     mobile : {
+                         required : "Please enter Mobile number",
+                         maxlength : "Mobile number provided is too long"
+                     },
+                     affiliation : "Please enter Affiliation",
+                     country : "Please select the Country",
+                 },
+                 highlight: function(element) {
+                     $(element).parent().addClass('error')
+                 },
+             
+                 unhighlight: function(element) {
+                     $(element).parent().removeClass('error')
+                 },
+         
+                 submitHandler: function(form) {
+                     form.submit();
+                 }
+             })
+                
+         }
+      </script>
+
+
+{% endblock %}

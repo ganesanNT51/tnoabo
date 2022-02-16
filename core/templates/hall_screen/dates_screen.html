@@ -1,0 +1,59 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} Program Live page {% endblock %}
+{% block content %}
+
+<style>
+  .table td , .table th  {
+    border-top: 1px solid#fff;
+  }
+  .table th
+  {
+    position: sticky;
+    top:0;
+  }  
+
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+  <div class="container-fluid">  
+    <div class="row  mt-5">
+      <div class="col-md-3 text-center">
+        <h3><a href="{{ url_for('sessions.Programsheet') }}" style="align-items: center;" title="program_sheet" class="btn btn-lg btn-primary" >
+          GO BACK TO PROGRAMSHEET <i class='fas fa-angle-right'></i> </a></h3>
+      </div>
+      <div class="col-md-6  text-center">
+        <!-- <img src="/static/images/background/inner_page_v2.jpg" style="height:75px;" class="img-fluid" alt="Responsive image"> -->
+      </div>
+      <div class="col-md-3 text-center">
+        <h3><a href="{{ url_for('user.Lobby') }}" style="align-items: center;" title="image" class="btn btn-lg btn-primary" >
+            GO BACK TO LOBBY <i class='fas fa-angle-right'></i> </a></h3>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-12">
+            
+        </div>
+        <div class="col-md-8 col-sm-12 text-center mt-md-5">
+          <div class="row">
+          {% for p in results %}
+                <div class="col-md-6">
+                  <div class="jumbotron orange bold mt-md-5">
+                      <h2 class="text-center"><a  href="{{ url_for('sessions.session_halls',s_date=p.date.strftime('%Y-%m-%d')) }}">
+                          {{ p.date.strftime('%d-%b-%Y')}}</a>
+                      </h2>
+                  </div>
+              </div>
+          {% endfor %} 
+          </div>
+        </div>
+
+        <div class="col-md-2 col-sm-12">
+            
+        </div>
+     
+    </div>
+
+    
+  </div>
+  
+{% endblock %}

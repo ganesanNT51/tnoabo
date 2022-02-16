@@ -1,0 +1,222 @@
+header
+{
+      /* background: floralwhite; */
+    /*border-bottom: 1px solid #03544f;*/
+      padding: 10px 0px;
+}
+
+/* text autoscroll in programsheet */
+.sitemessage {
+  /*display: inline-block;*/
+  color: red;
+
+  font-weight: 600;
+  font-size: 20px;
+  white-space: nowrap;
+  animation: floatText 15s infinite linear;
+  padding-left: 100%; /*Initial offset*/
+}
+.sitemessage:hover {
+  animation-play-state: paused;
+}
+
+@keyframes floatText {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+
+.hallcell
+{
+  background: #797a7a;
+  color:#fff; 
+  text-align: center;
+  /*position:sticky;*/
+  /*top: 0; */
+}
+
+.timecell
+{
+  background: #797a7a;
+  color:#fff; 
+  position:sticky;
+  left: 0; 
+  z-index: 1;
+}
+
+
+.box {
+    text-align: center;
+    height: 200px;
+    min-width: 350px;
+    background: red;
+    vertical-align: middle;
+    border: 1px solid blue;
+    border-radius: 5px;
+    /* top: 50%; */
+    position: relative;
+}
+
+
+.box a {
+    left: 50%;
+    color: black;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
+    width: 80%;
+}
+
+
+.error
+{
+  color: red;
+}
+
+
+/* .orange {
+  background-color: #eda22f;
+  color: #fff;
+} */
+
+.orange {
+  background-color: #eba231;
+  color:#4e2882;
+  /* color: #fff; */
+}
+
+.orange a{
+  background-color: #eba231;
+  color:#4e2882;
+  /* color: #fff; */
+}
+
+.header {
+  overflow: visible;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 0;
+  color: #fff;
+  border-radius: 7px;
+}
+
+
+
+
+
+.hall_badge{
+  position: relative;
+  width: 216px;
+  display: inline-block;
+  margin: 40px;
+  }
+
+.title{
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 1.7em;
+    position: absolute;
+    top: -28px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    width: 100%;
+    background: red;
+    padding: 20px 0;
+    color: #2B2B2B;
+  }
+  .subtitle{
+    position: absolute;
+    font-family: "Fjalla One", sans-serif;
+    font-size: 4em;
+    width: 100%;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 70px;
+  }
+
+.hall_badge a
+{
+  text-decoration: none;
+}  
+
+
+.badge_red .title{
+      background: #DC514E;
+  }
+.badge_red .subtitle:after{
+      color: #DC514E;
+  }
+
+
+.badge_green .title{
+      background: #2ecc71;
+  }
+.badge_green .subtitle:after{
+      color: #2ecc71;
+  }  
+
+
+.badge_gray .title{
+      background: #95a5a6;
+  }
+.badge_gray .subtitle:after{
+      color: #95a5a6;
+  }  
+
+
+.badge_yellow .title{
+      background: #f1c40f;
+  }
+.badge_yellow .subtitle:after{
+      color: #f1c40f;
+  }  
+
+
+.badge_blue .title{
+      background: #3498db;
+  }
+.badge_blue .subtitle:after{
+      color: #3498db;
+  }  
+
+
+
+
+.sub_header
+{
+    padding: 10px;
+    background: #fc4445;
+    border-radius: 5px;
+    color: white;
+
+}
+
+.sub_item
+{
+    padding: 10px;
+    background: #409be9;
+    border-radius: 5px;
+    color: white;
+
+}
+.sub_item a
+{
+  color:white;
+}
+
+.footer
+{
+  position: absolute;
+  bottom: 0%;
+  left:50%;
+  transform: translate(-50%, 0%);
+  color: red;
+  background: #fff;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+
+}

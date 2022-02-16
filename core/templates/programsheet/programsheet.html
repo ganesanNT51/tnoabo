@@ -1,0 +1,133 @@
+{% extends 'users/base.html' %}
+
+{% block title %} {% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    body  {
+      background-image: url("/static/images/background/inner_page_v2.jpg");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-color: #cccccc;
+    }
+</style>
+<br><br><br><br>
+<div class="container-fluid mt-5">
+    <div class="row">
+    <div class="col-2 text-center"></div>    
+    <div class="col-8 text-center">
+		<h3 class="text-center" style="color: white;">Program Sheet - {{title_date}}</h3>
+	</div>
+	<div class="col-2 text-right">
+		<a href="{{ url_for('user.Lobby') }}" style="align-items: center;color:#f7d5a2" title="LOBBY" class="btn btn-sm btn-primary">
+		<b>GO BACK TO LOBBY </b><i class='fas fa-angle-right'></i> </a>
+	</div>
+	</div>
+	<div class="row">			  
+	<div class="col-sm-12 col-md-12 col-lg-12 text-center">		
+				<div class="form-group">
+				<div class="btn-group">
+					{% for i in dates %}
+						{%  if i|string == progdate|string  %} <!-- convert i to string format -->
+							<a id="dates" name="dates" class="btn btn-primary" href="{{ url_for('sessions.Programsheet',progdate=i) }}">Day {{ loop.index }}</a>
+						{% else %}
+							<a id="dates" name="dates" class="btn btn-danger" href="{{ url_for('sessions.Programsheet',progdate=i) }}">Day {{ loop.index }}</a>
+						{% endif %}
+					{% endfor %}
+				</div>					
+			</div>
+	</div>	
+	<!-- <div class="col-12 text-center">
+			<form action = "{{url_for('sessions.Programsheet',progdate=progdate)}}" method="POST">					
+				<div class="row">
+					<div class="col-md-6 offset-md-2  form-group">
+						<input type="text" id="searchtxt" name="searchtxt" class="form-control" placeholder="Enter Speaker name or Session title here" >						
+					</div>
+					<div class="col-sm-2  form-group">
+						<select class="form-control" name="searchhall">
+							<option selected value=''>Select Hall</option>
+							{% for i in data_xaxis %}									
+								<option value= '{{ i }}'>{{ i }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 text-center  form-group">
+						<button  id="Apply" type="submit" class="btn btn-md btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+					</div>
+				</div>
+			</form>	
+	</div> -->
+	
+	</div>
+
+		
+		{% if final_data is defined and final_data|length > 0  %}
+		<div class="sitemessage">
+			Click on the Session Title to go to the respective hall. 
+		</div>
+
+		<div class="row">								
+			<div class="col-md-12 table-responsive" id="table-container">
+				{% autoescape off %}
+				{{ Helper.programsheet_html(dictList,final_data,allhalldata,dayend,hall) }}
+				{% endautoescape %}
+				<div id="bottom_anchor"></div>
+			</div>
+		</div>
+		{% else %}
+		<div class="row">								
+			<div class="col-md-12 offset-md-4" >
+				<a href="{{ url_for('sessions.Programsheet',progdate=progdate) }}"  style="color: yellow;">{{ message }}</a>
+				
+			</div>
+		</div>
+		{% endif %}
+	</div><!-- form-group end -->
+	<div class="col-12 text-center">
+		<a href="{{ url_for('user.Lobby') }}" style="align-items: center;color:#f7d5a2" title="LOBBY" class="btn btn-lg btn-primary">
+		  GO BACK TO LOBBY<i class='fas fa-angle-right'></i> </a>
+	  </div>
+</div>	
+
+
+
+{% endblock %}
+
+{% block bottomscript %}
+
+<script type="text/javascript">
+	function moveScroll(){
+    var scroll = $(window).scrollTop();
+    var anchor_top = $("#maintable").offset().top;
+    var anchor_bottom = $("#bottom_anchor").offset().top;
+    if (scroll>anchor_top && scroll<anchor_bottom) {
+    clone_table = $("#clone");
+    if(clone_table.length == 0){
+        clone_table = $("#maintable").clone();
+        clone_table.attr('id', 'clone');
+        clone_table.css({position:'fixed',
+                 'pointer-events': 'none',
+                 top:0});
+        clone_table.width($("#maintable").width());
+        $("#table-container").append(clone_table);
+        $("#clone").css({visibility:'hidden'});
+        $("#clone thead").css({visibility:'visible'});
+    }
+    } else {
+    $("#clone").remove();
+    }
+}
+$(window).scroll(moveScroll);
+</script>
+
+{% endblock %}
+	
+	
+
+

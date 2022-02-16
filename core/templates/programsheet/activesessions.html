@@ -1,0 +1,110 @@
+{% extends 'users/base.html' %}
+
+{% block title %} {% endblock %}
+
+
+{% block content %}
+
+	<br>
+	<div class="container-fluid">
+		<div class="jumbotron jumbotron-fluid" style="background-color: black;">
+			<h3 class="neon" style="text-align: center;">Active Sessions</h3>      			  
+		</div>
+	</div>
+	
+	<div class="form-group ScrollStyle">
+		<div class="container-fluid">			
+							
+		<div class="card-body">
+			<form action = "{{url_for('sessions.Activesessions',progdate=progdate)}}" method="POST">												
+				<div class="row col-sm-12">
+					<div class="col-sm-6 offset-md-3">
+						<input type="text" id="searchtxt" name="searchtxt" class="form-control" placeholder="Enter Speaker name or Session title here" >						
+					</div>
+					<div class="col-sm-2">
+						<!-- <input type="text" id="searchhall" name="searchhall" class="form-control" placeholder="" >	 -->
+						
+						<select class="form-control" name = "searchhall">
+							<option selected value=''>Select Hall</option>
+							{% for i in data_xaxis %}																
+								<option value= '{{ i }}'>{{ i }}</option>
+							{% endfor %}																							
+						</select>
+					</div>					
+				</div>
+				
+				<div class="row col-sm-12">
+					<div class="col-sm-12" style="text-align: center;">
+						<input  id="Apply" type="submit" class="btn btn-sm btn-primary" value="Search">
+					</div>
+				</div>
+			</form>					
+				
+			</div>
+		</div>
+		<br>
+		{% if Mess is defined %}
+			<div class="sitemessage" style="font-size: 20px;">
+				{{ Mess }}
+			</div>
+		{% else %}
+			{% if Message is defined %}
+			{% else %}
+			<div class="sitemessage" style="font-size: 20px;">
+				Click on the Session Title to go to the respective hall. 
+			</div>
+			{% endif %}
+			<br>  
+			
+			
+			{% if final_data is defined %}
+			<!-- {{ final_data }} -->
+			<div class="row" style="align-content: center;">								
+				<div class="col-md-12" style="text-align: center;">
+					{% autoescape off %}
+					
+					<table class="centertable">
+						<thead>
+							<th>Hall - Start time</th>
+							<th>Session</th>
+						</thead>
+						<tbody>
+
+						<!-- looping final_data contents and set the hall and session title	 -->
+						{% for key, value in final_data.items() %}
+							<td>{{key}}</td> <br>
+							{% for k, v in value.items() %}								
+								{% if k == 'session_title' %}								
+							<td><a style="color:black" target="_blank" href="{{ url_for('sessions.hall_screen',session_id=1) }}">{{v}}</a></td>								
+								{% endif %}								
+							{% endfor %}
+						{% endfor %}
+						</tbody>																
+					</table>
+					
+					{% endautoescape %}
+				</div>
+
+			</div>
+			{% else %}
+			<div class="row" style="align-content: center;">								
+				<div class="col-md-12 offset-md-4" style="font-size: 20px; color: red; font-weight: 600;">
+					{% autoescape off %}
+					<div>
+						{{ Message }}
+					</div>				
+					{% endautoescape %}
+				</div>
+			</div>
+			{% endif %}
+		{% endif %}	
+				
+
+	</div>
+
+{% endblock %}
+
+	
+	
+
+

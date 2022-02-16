@@ -1,0 +1,142 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} live Hall Screen {% endblock %}
+{% block content %}
+
+
+{% set badge_colors = ['','btn-color1','btn-color2','btn-color3','btn-color4'] %}
+
+<style>
+
+  body  {
+  background-image: url("/static/images/background/way_sign_v4.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #010424;
+  background-attachment: fixed;
+  }
+
+  @media screen and (max-width: 750px) {
+    body  {
+      background-image: url("/static/images/background/way_sign_mobile_v4.jpg") !important;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-color: #010424;
+      background-attachment: fixed; 
+    }
+  }
+
+  
+
+  .table td , .table th  {
+    border-top: 1px solid#fff;
+  }
+  .table th
+  {
+    position: sticky;
+    top:0;
+  }  
+
+  #halls{
+    position: absolute;
+    left: 25.5%;
+    width: 24.5%;
+    top: calc(100vw * 0.27);
+  }
+
+  .btn-hall
+  {
+    font-size: 2em;
+  }
+
+  .btn-color1 {
+      color: #fff;
+      background-color: #ff0000;
+      border-color: #ff0000;
+  }
+
+  .btn-color2 {
+      color: #fff;
+      background-color: #37359a;
+      border-color: #37359a;
+  }
+
+
+  .btn-color3 {
+      color: #fff;
+      background-color: #0043ff;
+      border-color: #0043ff;
+  }
+
+  .btn-color4 {
+      color: #fff;
+      background-color: #495057;
+      border-color: #495057;
+  }
+
+</style>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+  <div class="container-fluid">  
+    <div class="row  mt-5">
+      <div class="col-md-3 text-center">
+       <!--  <h3><a href="{{ url_for('sessions.Programsheet') }}" style="align-items: center;" title="program_sheet" class="btn btn-lg btn-primary" >
+          GO BACK TO PROGRAMSHEET <i class='fas fa-angle-right'></i> </a></h3> -->
+      </div>
+      <div class="col-md-6  text-center">
+        <!-- <img src="/static/images/background/inner_page_v2.jpg" style="height:75px;" class="img-fluid" alt="Responsive image"> -->
+      </div>
+      <div id="hallsbtnlobby" class="col-md-3 text-center">
+        <h3><a href="{{ url_for('user.Lobby') }}?user_id={{encrypted_user_id}}" style="align-items: center;" title="image" class="btn btn-lg btn-primary" >
+            GO BACK TO LOBBY <i class='fas fa-angle-right'></i> </a></h3>
+      </div>
+    </div>
+            <div id="halls">
+    <div class="row">
+          
+           <div class="col-12 mb-1"> 
+          
+            <a class="btn btn-color1 btn-hall btn-block " href="/session/2021-05-13/Demo%20-%20I?user_id={{encrypted_user_id}}">
+              DEMO - I
+            </a>   
+          
+          </div>       
+          
+          <div class="col-12 mb-1"> 
+          
+            <a class="btn btn-color2 btn-hall btn-block " href="/session/2021-05-13/Demo%20-%20II?user_id={{encrypted_user_id}}">
+              DEMO - II
+            </a>   
+          
+          </div>       
+          
+          <div class="col-12 mb-1"> 
+          
+            <a class="btn btn-color3 btn-hall btn-block " href="/session/2021-05-13/Demo%20-%20III?user_id={{encrypted_user_id}}">
+              DEMO - III
+            </a>   
+          
+          </div>       
+          
+          <div class="col-12 mb-1"> 
+          
+            <a class="btn btn-color4 btn-hall btn-block " href="/session/2021-05-13/Demo%20-%20IV?user_id={{encrypted_user_id}}">
+              DEMO - IV
+            </a>   
+          
+          </div>   
+
+        </div>
+     
+    </div>
+
+
+    
+  </div>
+  <div class="footer">
+            {{ Helper.footer_text() }}
+  </div>
+
+  
+{% endblock %}

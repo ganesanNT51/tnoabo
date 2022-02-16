@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title></title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="\static\css\mobile_view.css">
+      <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">   
+      <style type="text/css">
+
+        body#lobby  {
+          background-image: url("/static/images/background/lobby_v5.jpg");
+          background-repeat: no-repeat;
+          background-size: 100%;
+          background-color: #010424;
+          background-attachment: fixed;
+          }
+
+
+          .msg {
+              position: absolute;
+              left: 30%;
+              background: #0953a3;
+              color: #fff;
+              width: 50%;
+              top: calc(100vw * 0.40);
+              font-size: 20px;
+              padding: 10px;
+          }
+
+
+          .btn-primary {
+               color: #fff;
+               outline: 0;
+               border: none;
+          }
+          
+          #lobby_content
+          {
+            position: absolute;
+            top:calc(100vw * 0.2);
+            left:calc(100vw * 0.50);
+          }
+          #lobby_content .ang
+          {
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+          }
+
+          .btn-primary
+          {
+            background-color: transparent;
+            outline: 0;
+            border: none;
+          }
+          a:hover {
+            color: white;
+          }
+          .top
+              {
+                width: 100%;
+                height: calc(100vw * 0.165);
+                position: relative;
+              }
+
+.footer
+{
+  position: absolute;
+  bottom: 5%;
+  left:50%;
+  transform: translate(-50%, 0%);
+  color: red;
+}
+
+
+
+      </style>
+   </head>
+   <body id="lobby">
+{% set base_user = session.get('user') %}
+  <div class="container-fluid">
+
+                <hr>
+                <div class="row">
+                    
+                    <div class="col-lg-12 col-sm-12 text-right">
+                        <span class="h4 mr-2" style="color: #151B8D;">Welcome! {{base_user.prefix|upper }}{{ base_user.full_name|upper }}</span>
+                        <a class="btn btn-danger btn-sm mb-2" href="{{ url_for('user.Logout') }}" ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+
+<div class="top">
+
+</div> 
+ <div id="lobby_content"><br/><br/>
+    <h5 class="text-left" ><a  class="ang"  href="{{url_for('sessions.live_session')}}?user_id={{ user_id }}" class="btn btn-lg btn-primary">← LIVE HALL</a>
+    </h5>
+    <!-- <h5 class="text-left" ><a  class="ang"  href="{{url_for('sessions.hall_screen',session_id=1)}}" class="btn btn-lg btn-primary">← SCIENTIFIC HALL</a>
+    </h5> -->
+    <h5 class="text-left" >
+     <a class="ang"  href="{{url_for('sessions.Programsheet')}}" class="btn btn-lg btn-primary">
+        ↑ SCIENTIFIC PROGRAM</a>
+     </h5>
+      <!-- <h5 class="text-left" ><a  class="ang" href="{{url_for('user.Faculty')}}" class="btn btn-lg btn-primary">
+         → FACULTY </a>
+     </h5> -->
+
+
+     <!-- <h5 class="text-left"><a  class="ang"   href="{{ url_for('poster.get_poster') }}"   class="btn btn-lg btn-primary">
+         ← POSTER HALL </a>
+     </h5> -->
+     <h5 class="text-left" ><a  class="ang" href="{{ url_for('user.HelpDesk')}}"  class="btn btn-lg btn-primary">
+        →  HELP DESK </a>
+     </h5>
+      <!-- <h5 class="text-left" ><a  class="ang" href="http://www.sposiindia.org/" target="_blank" class="btn btn-lg btn-primary">
+         ← VISIT SPOSI SITE </a>
+     </h5> -->
+    
+     <!-- <h5 class="text-left" ><a  class="ang" href="{{ url_for('certify.Certificate')}}" target="_blank" class="btn btn-lg btn-primary">
+      ← CERTIFICATES </a>
+    </h5> -->
+    
+   
+  </div>
+
+  <div class="msg">
+    <p>Dear {{base_user.prefix or "" }}{{ base_user.full_name or ""  }},
+<br />
+              Your log for Medical Council Credit Point has been recorded!</p>
+ </div> 
+ <div class="footer">
+            {{ Helper.footer_text() }}
+  </div>
+        
+   </body>
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YLZ9FSNSJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5YLZ9FSNSJ');
+  </script>
+        
+</html>

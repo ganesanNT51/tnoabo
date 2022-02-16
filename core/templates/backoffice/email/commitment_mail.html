@@ -1,0 +1,119 @@
+<html>
+    <body bgcolor="#ffffff" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+            .headerTop { background-color:#4f2067; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
+            .adminText { font-size:10px; color:#996600; line-height:200%; font-family:Tahoma, Geneva, sans-serif; text-decoration:none; }
+            .headerBar { background-color:#FFFFFF; border-top:0px solid #333333; border-bottom:10px solid #FFFFFF; }
+            .title { font-size:20px; font-weight:bold; color:#CC6600; font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; line-height:110%; }
+            .subTitle { font-size:11px; font-weight:normal; color:#666666; font-style:italic; font-family:arial; }
+            td { font-size:12px; color:#000000; line-height:150%; font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; }
+            .sideColumn { background-color:#FFFFFF; border-left:1px dashed #CCCCCC; text-align:left; }
+            .sideColumnText { font-size:11px; font-weight:normal; color:#999999; font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; line-height:150%; }
+            .sideColumnTitle { font-size:15px; font-weight:bold; color:#333333; font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; line-height:150%; }
+            .footerRow { background-color:#FFFFCC; border-top:10px solid #FFFFFF; }
+            .footerText { font-size:10px; color:#996600; line-height:100%; font-family:'Open Sans' ,Tahoma, Geneva, sans-serif; }
+            a {color:#ee066c; text-decoration:none; outline:0px !important;}
+            a:hover{text-decoration:underline !important;}
+            p{font-size:15px; color:#000000; line-height:24px; text-align:justify; font-family:'Open Sans' ,Tahoma, Geneva, sans-serif;}
+            strong{font-weight:600; color:#ff0066;}
+            h1{font-size:24px; color:#333; text-transform:uppercase;}
+            h2{font-size:15px; color:#ff0066; text-transform:uppercase;}
+            img{display:block !important; border:none; outline:0px !important;}
+            div.preheader { display: none !important; }
+            #tbl table { border-collapse: collapse;}
+            #tbl table, #tbl th, #tbl td {border: 1px solid #696969;padding: 5px;}
+        </style>
+        <div style="width: 0px; height: 0px; overflow: hidden; position: absolute; min-height: 0px; line-height: 0px; font-size: 0px; color: #ffffff; display:none; left:-99999;">
+            <h1>BOA 2021</h1>
+        </div>
+        <table bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" style="padding:20px;" valign="top">
+                    <table align="center" bgcolor="#ffffff" border="1" cellpadding="0" cellspacing="0" style="border:1px solid #cccccc; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" width="640">
+                        <tr valign="middle">
+                            <td align="center" style="background-color:#ffffff;border:1px;line-height:0px;">
+                                <img alt="BOA 2021" border="0" height="auto" src="https://boa2021.urbanedge.co.in/static/images/login/Transactional_mailer_header2.jpeg" width="640"/>
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left" style="background-color:#ffffff;border:none; text-align:left; padding:20px 20px 0 20px">
+                                <hr/>
+                                        <p style="font-size:15px; ">
+                                    <b>Dear  {{ user.prefix or "" }} {{ user.full_name }}:</b>
+                                </p>
+                               
+                              
+                                <p style=" font-size:15px;">
+                                   Greetings from the Scientific Committee of BOA MOS Summer Focus Virtual Symposium
+                                </p>
+                                <p style="font-size:15px; ">
+                                  Please find below your scientific commitments for day 4 (30/May/2021)
+                                </p>
+
+                                <table id="tbl" width="100%"  cellspacing="0" cellpadding="0" style="border-collapse:   collapse;   border: 1px solid #696969; ">
+                                    <thead>
+                                        <th style="border: 1px solid #696969;padding: 5px;" >Session</th>
+                                        <th style="border: 1px solid #696969;padding: 5px;">
+                                            Role
+                                        </th>
+                                        <th style="border: 1px solid #696969;padding: 5px;">
+                                            Topic - Duration
+                                        </th>
+                                     <th style="border: 1px solid #696969;padding: 5px; width: 30%">Date | Time | Hall</th>
+                                     <th style="border: 1px solid #696969;padding: 5px;">Zoom Link</th>
+                                    </thead>
+                                    <tbody>
+                                      {% for d in data %}
+                                            <tr>
+                                                <td style="border: 1px solid #696969;padding: 5px;">
+                                                    {{ d.session_title }}
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                   {{ d.role }}
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                   {{ d.topic or "" }} - {{ d.duration or ""}}
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                    {{ d.date.strftime('%d-%b-%Y') or ""  }} <br/> {{ d.session_start_date_time.strftime('%H:%M')  or ""  }} - {{ d.session_end_date_time.strftime('%H:%M') or ""  }} <br/> {{ d.session_hall or ""  }} 
+                                                </td>
+                                                <td align="center" style="border: 1px solid #696969;padding: 5px;">
+                                                   {% if d.zoom_link %}
+                                                   <a href="{{ d.zoom_link }}" target="_bank">Zoom link</a>
+                                                   {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <p style="font-size:15px;">
+                                    <ul>
+                                      <li>Please login to the zoom atleast 15 mins prior to your session.</li>
+                                      <li>You will be prompted to fill in your name , email id and mobile in zoom. Once filled in, you will be able to login to the zoom platform</li>
+                                    </ul>
+                                </p>
+
+                                <!-- <p style="font-size:15px;">
+                                    Got queries on scientific sessions? Email to <a href="mailto:support@numerotec.com" style="color:#ff0066;text-decoration:none;">support@numerotec.com</a> and be assured of our response in one working day.
+                                </p> -->
+                                <p>
+                                  For any assistance in logging into the platform, please call +91 99528 91920 / +91 98432 17108 / +91 98438 46776
+                                </p>
+                                <hr/>
+                            </td>
+                        </tr>
+            
+            <tr valign="middle">
+              <td align="center" style="background-color:#f4f4f4;border:none; padding:10px; font-size:12px;">
+                This is an auto-generated email from the BOA Scientific Committee abstract management system.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

@@ -1,0 +1,8 @@
+<div class="incoming_msg">
+    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+    <div class="received_msg">
+      <div class="received_withd_msg" id="word_wrap"> 
+          <p>{{ comment.comment }}</p>
+        <span class="time_date"> {{ comment.prefix}}{{ comment.full_name}} | {{ comment.created_at.strftime("%I:%M %p") }}    |    {{ comment.created_at.strftime("%b %d") }} </span></div>
+    </div>
+  </div>

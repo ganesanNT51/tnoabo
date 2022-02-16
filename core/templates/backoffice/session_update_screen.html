@@ -1,0 +1,197 @@
+{% extends 'backoffice/bo_layout.html' %}
+
+{% block content %}
+
+
+<div class="contrainer">
+<br/>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="text-center">
+        <h3>Session Control</h3>
+  </div>
+    
+  </div>
+  
+</div>
+<br/>
+
+
+    <div class="card">
+  <h5 class="card-header" style="background-color: #1320EB;color: #ffffff" id="fillter_head"><i class="fas fa-filter"></i> Filter</h5>
+  <div class="card-body" id="card_body">
+    <!-- <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    <div class="row">
+      <div  class="col-sm-3"> 
+        <select class="form-control w-100" id="hall_search" name = "hall_search" >
+            <option value = "" id = "select"> Select  Hall</option>
+            {% for row in halls  %}
+            <option value = "{{row.hall}}">{{row.hall}}</option>
+            {% endfor %}
+            
+            
+         </select>
+        <!-- <input type="text" name="hall_search" id="hall_search" placeholder="Enter Hall"> -->
+      </div>
+      <div  class="col-sm-3"> 
+        <select class="form-control w-100" id="date_search" name = "date_search" >
+            <option value = "" id = "select"> Select  Date</option>
+            {% for row in session_date %}
+            <option value = "{{row.date}}"> {{row.date}}</option>
+            {% endfor %}
+            
+            
+         </select>
+        
+        
+      </div>
+      <div  class="col-sm-3"> 
+        <input type="button" name="search_btn" id="search_btn"  value="Search" class="btn btn-primary">
+      </div>
+
+
+  </div>
+  </div>
+</div>
+       
+          
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Date</th>
+      <th scope="col">Hall</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Live Stream</th>
+      <th scope="col">Start Time</th>
+      <th scope="col" colspan="2">End Time</th>
+
+    </tr>
+  </thead>
+  <tbody id="table_html">
+   
+    
+  </tbody>
+</table>
+</div> 
+{% endblock %}
+{% block bottomscript %}
+<!-- jquery-3.2.1.min -->
+
+<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+
+<script type="text/javascript">
+   var baseUrl = document.location.protocol+'//' + document.domain + ':' + location.port;
+   var id = 1;
+    $(document).ready(function()
+   {
+    $("#card_body").hide();
+     getSession();
+
+   });
+    $(document).on('click','#search_btn',function(e)
+    {
+      e.preventDefault();
+
+        getSession();
+    
+    });
+
+
+    function getSession()
+      {
+              var hall_search = $("#hall_search").val();
+              var date_search = $("#date_search").val();
+
+        $.ajax({
+                      type: 'GET', // <-- get method of form
+                      url: baseUrl+'/backoffice/getsessions', // <-- get action of form
+                      data: { "hall_search": hall_search,"date_search":date_search}, 
+                      dataType: 'json',
+                      success: function(data){
+                        if(data)
+                        {
+    
+                            $("#table_html").html(data.html)
+                        }
+                        else
+                        {
+                           alert(data.message);
+                        }
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                          //location.reload();  
+                        }                      
+              }); 
+      }
+
+    $(document).on('click','#fillter_head',function(e)
+    {
+      e.preventDefault();
+      $("#card_body").toggle();
+    });
+  
+    
+
+
+
+
+
+
+
+
+
+    $(document).on('click','.save_btn',function(e)
+    {
+      e.preventDefault();
+     
+      var session_id = $(this).attr('value');
+      // alert(session_id);
+      var sess_title    = "#session_title_"+session_id;
+      var sess_desc     = "#session_desc_"+session_id;
+      var live_stream     = "#live_stream_"+session_id;
+      var sess_start_dt = "#session_start_date_time_"+session_id;
+      var sess_end_dt   = "#session_end_date_time_"+session_id;
+      var session_title = $(sess_title).val();
+      var session_desc  = $(sess_desc).val();
+      var live_stream  = $(live_stream).val();
+      var session_start_date_time = $(sess_start_dt).val();
+      var session_end_date_time   = $(sess_end_dt).val();
+      
+
+      // alert(live_stream);
+      // alert(session_desc);
+      // alert(session_start_date_time);
+      // alert(session_end_date_time);
+      
+       
+
+       $.ajax({    
+         type: "POST",
+         data: { "session_id": session_id,"session_title":session_title,"session_desc":session_desc,"session_start_date_time":session_start_date_time,"session_end_date_time":session_end_date_time,"live_stream":live_stream },
+         url: baseUrl+"/backoffice/update_session",             
+         dataType: "json",    
+   
+         success: function(data)
+         {
+             alert('Hi ')
+           if(data.status == 1)
+             {
+              alert('data successfully updated !.')
+                // result_2 = data;
+             }
+             else
+             {
+               alert("No Recored Found")
+             }
+           }
+         });
+      
+    })
+
+ </script> 
+ 
+ {% endblock %} 

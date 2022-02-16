@@ -1,0 +1,172 @@
+{% extends 'backoffice/bo_layout.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+	
+	<div class="container">		
+		<form action = "{{url_for('sessions.CreateSession')}}" method="post" onsubmit="return validate();">
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-md-6 offset-md-3 offset-md-1">			  
+						<div class="form-group">						
+						<h3 class="col-md-12 offset-md-3">CREATE SESSION</h3>
+						</div>
+					</div>
+				</div>
+			  </div>
+			
+		
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="form-group">
+						<label for="searchhall">Session Hall</label>
+						<select class="form-control" id = "searchhall" name = "searchhall">
+							<option selected value=''>Select Hall</option>
+							{% for hall in halls %}																
+								<option value= '{{ hall }}'>{{ hall }}</option>
+							{% endfor %}																							
+						</select>
+						<span class="error" id="searchhall_error"></span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 offset-md-3">
+					<div class="form-group">
+						<label for="from_date">Session Start Date</label>					  
+						<input type="date" name="from_date" id="from_date" class="form-control" />					  
+					<span class="error" name="from_date_error" id="from_date_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-3 offset-md-0">
+					<div class="form-group">
+						<label for="to_date">Session End Date</label>
+						<input type="date" name="to_date" id="to_date" class="form-control" />			    
+					<span class="error" name="to_date_error" id="to_date_error"></span>
+					</div>					  
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3 offset-md-3">
+					<div class="form-group">
+						<label for="from_date">Session Start Time</label>					  
+						<input type="time" name="start_time" id="start_time" class="form-control" />					  
+					<span class="error" name="start_time_error" id="start_time_error"></span>
+					</div>					  
+				</div>
+				<div class="col-md-3 offset-md-0">
+					<div class="form-group">
+						<label for="to_date">Session End Time</label>
+						<input type="time" name="end_time" id="end_time" class="form-control" />			    
+					<span class="error" name="end_time_error" id="end_time_error"></span>
+					</div>					  
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="form-group">
+						<label for="session_title">Session Title</label>
+						<textarea name="session_title" class="form-control" id="session_title" rows="6" cols="20" placeholder="Enter Session Title here.."></textarea>			    
+					<span class="error" name="sessiontitle_error" id="sessiontitle_error"></span>
+					</div>					  
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="form-group">
+						<label for="session_description">Session Description</label>
+						<textarea name="session_description" class="form-control" id="session_description" rows="12" cols="20" placeholder="Enter Session Description here.."></textarea>			    
+					<span class="error" name="sessiondesc_error" id="sessiondesc_error"></span>
+					</div>					  
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="form-group">
+						<label for="video_link">Video Link</label>
+						<textarea name="video_link" class="form-control" id="video_link" rows="2" cols="20" placeholder="Enter video_link here.."></textarea>			    
+					<span class="error" name="video_link_error" id="video_link_error"></span>
+					</div>					  
+				</div>
+			</div>	
+			
+			<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="form-group">
+					<label for="bg_color">Background Color Picker</label>
+					<input type="color" name="bg_color" class="form-control" value="#FFFFFF" />
+					<span class="error" name="bgcolorpicker_error" id="bgcolorpicker_error"></span>
+				</div>					  
+			</div>
+			</div>
+												
+			<div class="row">
+			<div class="col-sm-6 col-md-6 col-lg-6 offset-md-5">
+				<div>
+					<input type="submit" id="next" name="next" value="Submit" class="btn mulberry"></input> 
+				</div>			  
+			</div>
+			</div>
+			
+		</form>
+	</div> <!-- container end -->	
+{% endblock %}	
+	
+{% block bottomscript %}	
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+		function validate(){
+			valid = true;
+
+			let val1 = $("#searchhall").val();
+			if (val1 == ''){
+					$('#searchhall_error').text("Please select a hall!");					
+					valid = false;
+				}
+			let val2 = $("#from_date").val();
+			if (val2 == ''){
+					$('#from_date_error').text("Please select a start date!");					
+					valid = false;
+				}
+			let val3 = $("#to_date").val();
+			if (val3 == ''){
+					$('#to_date_error').text("Please select an end date!");					
+					valid = false;
+				}	
+			let val4 = $("#start_time").val();
+			if (val4 == ''){
+					$('#start_time_error').text("Please select a start time!");					
+					valid = false;
+				}
+			let val5 = $("#end_time").val();
+			if (val5 == ''){
+					$('#end_time_error').text("Please select an end time!");					
+					valid = false;
+				}
+			let val6 = $("#session_title").val();
+			if (val6 == '' || val6.length < 1){
+					$('#sessiontitle_error').text("Please enter session title!");					
+					valid = false;
+				}
+			
+			let val7 = $("#bgcolorpicker").val();
+			if (val7 == ''){
+					$('#bgcolorpicker_error').text("Please choose a color!");					
+					valid = false;
+				}
+
+			return valid;
+		}
+
+		
+	</script>
+{% endblock %}	

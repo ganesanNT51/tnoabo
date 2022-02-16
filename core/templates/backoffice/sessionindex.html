@@ -1,0 +1,117 @@
+{% extends 'backoffice/bo_layout.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+    
+    <form method="post">
+      <div class="card-footer text-muted">   
+				<div class="row">
+					<div class="col-md-6 offset-md-3 offset-md-1">			  
+						<div class="form-group">						
+						<h3 class="col-md-12 offset-md-3">SESSION INDEX</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">                      
+				   <div class="col-sm-12 text-right">	  
+            	  
+            <a id="dates" name="dates" class="btn btn-primary" href="{{ url_for('backoffice.CreateSession') }}"><b>Add Session</b></a>	  
+				   </div>
+				</div>
+			</div>
+      <!-- <br><br> -->
+              
+        <!-- <div class="form-group ScrollStyle">
+          <div class="container-fluid">			
+                    
+          <div class="card-body">
+            <form action = "{{url_for('backoffice.SessionIndex')}}" method="POST">												
+              <div class="row col-sm-12">
+                <div class="col-sm-2 offset-md-1">                  
+                  <select class="form-control" name = "searchdate">
+                    <option selected value=''>Select Date</option>
+                    {% for date in dates %}																
+                      <option value= '{{ date }}'>{{ date }}</option>
+                    {% endfor %}																							
+                  </select>
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" id="searchtxt" name="searchtxt" class="form-control" placeholder="Enter Speaker name or Session title here" >						
+                </div>
+                <div class="col-sm-2">                  
+                  <select class="form-control" name = "searchhall">
+                    <option selected value=''>Select Hall</option>
+                    {% for hall in halls %}																
+                      <option value= '{{ hall }}'>{{ hall }}</option>
+                    {% endfor %}																							
+                  </select>
+                </div>
+                					
+              </div>
+              <br>
+              <div class="row col-sm-12">
+                <div class="col-sm-12" style="text-align: center;">
+                  <input  id="Apply" type="submit" class="btn btn-sm btn-primary" value="Search">
+                </div>
+              </div>
+            </form>					
+              
+            </div>
+          </div>
+        </div> -->
+        {% if message is defined %}
+          {% if message != None %}
+            <div class="sitemessage" style="font-size: 20px;">
+              {{ message }}
+            </div>
+          {% endif %}
+        {% endif %}
+    <table class="table table-striped table-hover table bordered" >
+        <thead class="thead-dark">  
+           <tr >
+              <th>Session ID</th>
+              <th>Session Title </th>
+              <th>Date</th>
+              <th>Hall</th>
+              <th>Start Time </th>
+              <th>End Time </th>              
+              <th>Zoom Link</th>              
+              <th>Video link</th>
+              <th>Authors</th>
+              <th>Edit</th>
+              <th>Delete</th>
+                 
+           </tr>
+         </thead>
+         {% if session_data is defined %}
+         {% for i in session_data %}
+           <tbody>
+               <tr>
+                   <td >{{ i.session_id }}</td>
+                   <td >{{ i.session_title }}</td>
+                   <td >{{ i.date.strftime('%d-%m-%Y') }}</td>
+                   <td >{{ i.session_hall }}</td>                   
+                   <td >{{ i.session_start_date_time.strftime('%H:%M') }}</td>
+                   <td >{{ i.session_end_date_time.strftime('%H:%M') }}</td>   
+                   <td><a href="{{ i.zoom_link }}" target="blank">{{ i.zoom_link or ''}}</a></td>
+                   <td><a href="{{ i.video_link }}" target="blank">{{ i.video_link or ''}}</a></td>
+                   <td><a class="btn btn-primary" href="{{url_for('sessions.Authors', session_id=i.session_id)}}" target="blank">Authors</a></td>                
+                   <td data-label="Edit"> 
+                    <a href="{{url_for('backoffice.SessionEdit', id=i.session_id)}}"><span class='fas fa-pencil-alt' style="color:green" ></span>                    
+                   </td>
+                   <td data-label="Delete">
+                      <a href="{{url_for('backoffice.Delete', id=i.session_id)}}"><span class='fas fa-trash-alt' style="color:red"></span>
+                   </td>
+               </tr>
+        </tbody>
+        {% endfor %}
+        {% endif %}
+        </table>
+        </form>
+  {% endblock %}
+
+	
+	
+
+

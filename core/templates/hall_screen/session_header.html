@@ -1,0 +1,23 @@
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 text-center header">
+                      <div class="head-content" id="title_time">
+                        {% if s %}
+                          <h2 id="title">{{ s.session_title|upper}}</h2>
+                          {% if s.session_subtitle %} 
+                          <h5 id="sub_title">{{ s.session_subtitle|upper}} </h5>
+                          {% endif %}
+                          <span> {{ s.date.strftime('%d-%b-%Y') }} - Hall : {{ s.session_hall }} </span>
+                        {% else %}
+                        <h2 id="title">
+                          {{  s_date|upper }}</h2>
+                          {% if s_hall %} 
+                            <h5 id="sub_title">Hall : {{ s_hall|upper}} </h5>
+                          {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                </div>   
+            </div>
+        </header>

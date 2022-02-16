@@ -1,0 +1,94 @@
+<!--using html5 doctype -->
+<!doctype html>
+
+<!--using language attribute-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+            .table
+            {
+                border: 1px solid black;
+                text-align: center;
+                background-color: #FDF8FE;
+                
+            }
+            #tbod
+            {
+                padding: 10px;
+            }
+        </style>
+        
+    </head>
+
+    <body > 
+
+        <div class="container" style="width: 640px;">
+           <table class="table">
+              <thead>
+                <tr>
+                    <th >
+                       <img style="width:100%;" src="https://tnoavconfbo.urbanedge.co.in/static/images/tnoa_logo_v3.jpg" >
+                    </th>
+                </tr>
+              </thead>
+              <tbody id="tbod">
+                <tr>
+                  <td>
+                      <p> 
+                        <span style = "font-size: 22px;width: 650px"> Dear : {{ name }},</span>
+                         <br/> 
+                        <span style = "font-size: 18px;width: 650px">
+                            Greetings from the organising committee, 68th conference of Tamilnadu ophthalmic association, MADRAS ICON 2021.
+                        </span> 
+                    </p>
+                    
+                      
+                      <p style = "font-size: 18px;">
+                           Please access the conference website through the following link  <a href="https://tnoa2021.tnoa.info/">https://tnoa2021.tnoa.info/</a> 
+                           <br/>
+                           Your user id : {{ email }}
+                           <br/>
+                           Password : {{ password }} 
+                       </p>
+                <p style = "font-size: 18px;">For a better experience , visit the conference website on a desktop / laptop.<br/>
+                Once you are in the scientific hall, ensure that you unmute the video and play.</p>
+                <p style = "font-size: 18px;">
+                Day 1 - 10/Sep/2021, Friday : Program starts @ 5:30 pm
+                <br/>
+                Day 2 - 11/Sep/2021, Saturday: Program starts at 8:30 am, Inaugural function, TNOA orations, annual GBM followed by  scientific sessions<br/>
+                Day 3 - 12/Sep/2021, Sunday : Scientific session starts  @ 8:00 AM</p>
+                
+                <p style = "font-size: 18px;">For any assistance, please feel free to contact us on ‭+91 99528 91920<br/>
+                Looking forward to seeing you @ MADRAS ICON 2021.</p>
+                <br>
+                <p style = "font-size: 18px;">Organising  Committee MADRAS ICON 2021<br/>
+                    
+                </p>
+
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+
+           
+            <br/>
+                
+                
+
+
+        </div>
+    </body>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- plugin for jquery validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"> </script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</html>
+

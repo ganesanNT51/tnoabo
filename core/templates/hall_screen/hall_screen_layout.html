@@ -1,0 +1,97 @@
+<!doctype html>
+
+<!--using language attribute-->
+<html lang="en">
+    <head>
+
+        <!--using character set attribute in meta tag-->
+        <meta charset="UTF-8">
+
+        <!--bootstrap-4 for mobile responsive-->
+        <!--using below meta tag to set width and initial zoom level-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Latest compiled and minified CSS -->
+        <!-- <link rel="stylesheet" type="text/css" href="\static\css\bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!--link for input group prepend for adding text / icon in the input -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="\static\css\loader.css">
+
+        <!--link for CSS-->
+        <link rel="stylesheet" type="text/css" href="\static\css\mobile_view.css">
+        <link rel="stylesheet" type="text/css" href="\static\css\style.css">
+        <link rel="stylesheet" type="text/css" href="\static\css\session_chat.css">
+        <!-- <link rel="stylesheet" type="text/css" href="\static\css\theme.css">         -->
+        <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">   
+
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        {% block style %}
+            <style type="text/css">
+                body  {
+                background-image: url("/static/images/background/inner_page_v2.jpg");
+                background-repeat: no-repeat;
+                background-size: 100%;
+                background-color: #010424;
+                background-attachment: fixed;
+                }
+            </style>
+        {% endblock %}
+    </head>
+
+
+    <body>
+
+       
+
+        
+
+        <!-- side bar start -->
+
+        {% block content %} {% endblock %}
+
+<!--       <footer class="footer">
+      <div class="container">
+        <span class="text-muted">powered by virtual conference</span>
+      </div>
+</footer>
+ -->
+
+    </body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5YLZ9FSNSJ"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5YLZ9FSNSJ');
+    </script>
+    
+    <!-- <script src="/static/js/jquery.min.js" charset="utf-8"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- link for jquery validation -->
+	<!-- <script src="/static/js/jquery.validate.js" charset="utf-8"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js" charset="utf-8"></script>
+	<!-- <script src="/static/js/popper.min.js" charset="utf-8"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="/static/libs/jquery/jquery.js"></script> -->
+
+    <!-- <script type="text/javascript" src="/static/js/bootstrap.min.js"></script> -->
+    <!-- link for jquery ajax loader -->
+    <!-- <script src = "{{('/static/script/loader.js')}}"> </script> -->
+
+    <!-- <script src = "{{('/static/script/base.js')}}"> </script> -->
+
+    <script type="text/javascript">
+        var BaseUrl = document.location.origin
+    </script>
+
+    {% block bottomscript %} {% endblock %}
+
+
+</html>

@@ -1,0 +1,40 @@
+{% extends 'users/base.html' %}
+
+{% block title %} {% endblock %}
+
+{% block style %}
+<!--  <style type="text/css">
+	body  {
+	  background-image: url("/static/images/landing_page.jpg");
+	  background-repeat: no-repeat;
+  	  background-size: cover;
+	  background-color: #cccccc;
+	}
+</style> -->
+
+{% endblock %}
+
+{% block content %}
+
+<!-- <div class="container mt-5">
+<div class="row" style="height: vh100 !important;">
+	<div class="col-12 text-center">
+	<h1>Welcome to the first virtual annual meet of SPOSI</h1>
+	<br/>
+	<h1>STRAIGHT 2020</h1>
+	<br/>
+	<h1>See you on 12th Dec, Saturday @ 3 PM</h1>
+	</div>	
+</div>	
+</div>
+<br><br><br>
+
+<div class="row col-lg-12 col-md-12 col-sm-12">
+	<div class="col-lg-6 col-sm-6 text-right text-md-right">		
+		<a class="btn btn-primary btn-lg mb-2" href="{{ url_for('sessions.Programsheet') }}" ><i class="" aria-hidden="true"></i>Programsheet</a>
+	</div>
+	<div class="col-lg-6 col-sm-6 text-left text-md-left">		
+		<a class="btn btn-warning btn-lg mb-2" href="{{ url_for('sessions.SessionIndex') }}" ><i class="" aria-hidden="true"></i>Back Office</a>
+	</div>
+</div>
+{% endblock %}

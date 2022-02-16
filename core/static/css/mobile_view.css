@@ -1,0 +1,101 @@
+@media screen and (max-width: 750px) {
+    body
+    {
+        background-image: none !important;
+        background-color: #F5B033  !important;
+
+    }
+
+    body#lobby  {
+          background-image: url("/static/images/background/lobby_mobile_v3.jpg") !important;
+          background-repeat: no-repeat;
+          background-size: 100%;
+          background-color: #010424 !important;
+          background-attachment: fixed;
+    }
+
+    #lobby_content
+      {
+        position: absolute;
+        top:calc(100vw * 0.65) !important;
+        left:2% !important;
+        margin: 10px !important;
+      }
+      #lobby_content .ang
+      {
+        font-size: 2rem !important;
+        color: white;
+        line-height: 4rem;
+
+      }      
+
+
+	.Scroll {
+        height:auto !important;
+        overflow-y: scroll;
+      }
+
+      .header .head-content {
+        top:50% !important;
+        /*margin-top: 10px;*/
+        left: 50% !important;
+        transform: translate(-50%, -50%);
+        color: #f7d5a2;
+    }
+
+    .header
+    {
+        height: 70px !important;
+        margin:0px !important; 
+    }
+    #title
+    {
+        font-size: 1.5rem !important;
+    }
+    #sub_title
+    {
+        font-size: 0.90rem !important;
+    }
+
+    header {
+        padding-top: 10px !important;
+        padding-bottom: 0px !important; 
+    }
+    .header
+    {
+        margin-bottom:5px !important;
+    }
+    .h4, h4 {
+        font-size: 1rem !important;
+    }
+    .h5, h5 {
+        font-size: 0.90rem !important;
+    }
+
+    /* .ml-5, .mx-5 {
+        margin-left: 0.1rem!important;
+    }
+    .mt-3, .my-3 {
+        margin-top: 0.0rem!important;
+    } */
+
+    .h1, h1 {
+        font-size: 1.5rem !important;
+    }
+    .offset-5 {
+        margin-left: 29.666667%;
+    }
+
+    /*halls screen*/
+    #halls
+    {
+        left:50px !important;
+        width:  80% !important;
+        top: calc(100vw * 0.60) !important;
+    }
+    #hallsbtnlobby
+    {
+        top: calc(100vw * 1.10) !important;
+    }
+
+}

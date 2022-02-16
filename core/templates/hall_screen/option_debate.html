@@ -1,0 +1,39 @@
+{% if option_debates %}
+<style>
+.list-group-item{background: greenyellow; text-decoration: none; color:#000;}
+/* .list-group-item:hover{background: #FFE5B5; text-decoration: none; color:#fff;} */
+/* .list-group-item-heading {margin-bottom: 0;} */
+.selected
+    {
+      background-color: darkred;
+      color: #fff;
+
+    }
+</style>
+<div id="alert_success" class="alert alert-success alert-dismissible" 
+          style="display: none;">
+          <label id="lblSuccess"></label>
+    </div>
+    <div id="alert_error" class="alert alert-danger alert-dismissible"
+          style="display: none;">
+          <label id="lblError"></label>
+    </div>
+    <div class="row " id="showOptions">
+    {% for option in option_debates %} 
+      <div class="col-md-5 text-center form-group">
+         <!-- selected-->
+         <button type="button"  class="option list-group-item  home-description btn-block " data-option-id="{{ option.d_option_id }}">
+          <h5 id="optionsfour" class="list-group-item-heading"  > {{ option.option_speker_name }} </h5>
+          <span style="clear: both;"></span>
+        </button>
+      </div>
+    {% endfor %}
+      <div class="col-md-2 col-lg-2 form-group">
+         <!--onclick="return save();" -->
+         <button type="button"  id="btnSave"  class="btn btn-primary btn-block" data-option-id="B">
+          <h5 id="optionsfour" class="" >SAVE</h5>
+          <span style="clear: both;"></span>
+       </button>
+      </div>
+   </div>
+{% endif %}   

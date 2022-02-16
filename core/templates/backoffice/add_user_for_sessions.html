@@ -1,0 +1,479 @@
+{% extends 'backoffice/bo_layout.html' %}
+{% block style %}
+<style type="text/css">
+   #myModal {
+   position: absolute;
+   left: 30%;
+   top: 10%;
+   right: :10%;
+   padding-left: 10px;
+   transform: translate(-30%, -30%);
+   height: 300px;
+   width: 800px !important;
+   overflow: initial;
+   }
+   #modal_header {
+   float: right;
+   }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+   <br/> <br/>
+   <div class="row">
+      <div class="col-sm-6">
+         <div class="text-right">
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#myModal" name="search_btn" id="search_btn"  > Search</button>
+         </div>
+      </div>
+      <div class="col-sm-6">
+         <!-- <div class="text-left">
+            <button class="btn btn-success" style="margin-right: 20px;"> Add User </button>
+            </div> -->
+      </div>
+   </div>
+   <br/>
+   <input type="hidden" name="author_user_id" id="author_user_id" value="0">
+   <input type="hidden" name="author_id" id="author_id" value="0">
+   <input type="hidden" name="authors_data_json" id="authors_data_json" value="{{authors_data_json | default('')}}">
+   <!-- <input type="hidden" name="selected_user_id" id="selected_user_id" value="{{user_id |default('')}}"> -->
+   <input type="hidden" name="session_id" id="session_id" value="{{session_id}}">
+   <div class="col-lg-12">
+      <table class="table">
+         <thead class="thead-dark">
+            <tr>
+               <th  class="text-left"> Name   </th>
+               <th  class="text-left"> Email  </th>
+               <th  class="text-left"> Mobile </th>
+               <th  class="text-left"> Designation   </th>
+               <th  class="text-left"> Topics   </th>
+               <th  class="text-left"> Duration   </th>
+               <th  class="text-left">    </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <!-- <th  class="text-left"> <button class="btn-primary"  data-toggle="modal" data-target="#myModal" name="search_btn" id="search_btn"  > S</button> </th> -->
+               <th  class="text-left"> <input class="form-control" type="text" name="author_name" id="author_name" placeholder=" Name" >    </th>
+               <th  class="text-left"> <input class="form-control" type="text" name="author_email" id="author_email">   </th>
+               <th  class="text-left"> <input class="form-control" type="text" name="author_mobile" id="author_mobile"> </th>
+               <th  class="text-left">
+                  <select class = "form-control w-100" id = "role" name = "role">
+                     <option value = "0" >Select Designation</option>
+                     {% if roles %}
+                     {% for rol in roles %}
+                     <option value = "{{rol.role_id}}"> {{rol.role}} </option>
+                     {% endfor %}
+                     {% endif %}
+                  </select>
+               </th>
+               <th>
+                  <textarea class="form-control w-125" id="topics" name="topics" rows="3"></textarea>
+               </th>
+               <th  class="text-left"> <input class="form-control" type="text" name="duration" id="duration" placeholder="Duration"> </th>
+               <th  class="text-left">  <input type="button" class="btn btn-success" id="author_save_btn" value="Save" >    </th>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <br/>
+   <div class="col-lg-12">
+      <table class="table">
+         <thead class="thead-dark">
+            <tr>
+               <th  class="text-left"> Name   </th>
+               <th  class="text-left"> Email  </th>
+               <th  class="text-left"> Mobile </th>
+               <th  class="text-left"> Designation</th>
+               <th  class="text-left">Topic</th>
+               <th  class="text-left">Duration</th>
+               <th  class="text-left" colspan="2"></th>
+            </tr>
+         </thead>
+         <tbody id="selected_authors_list">
+         </tbody>
+      </table>
+   </div>
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+            <div class="modal-header" id="modal_header">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-body">
+               <div id="search_input_div">
+                  <!--  <input type="text" name="search_input"  class="form-control" id="search_input" placeholder="Enter Name"> -->
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search this blog" id="search_input_modal" name="search_input_modal">
+                     <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" id="search_btn_modal">
+                        <i class="fa fa-search"></i>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+               <br/>
+               <table class="table ">
+                  <thead class="thead-dark">
+                     <tr>
+                        <th  class="text-left"> Name   </th>
+                        <th  class="text-left"> Email  </th>
+                        <th  class="text-left"> Mobile </th>
+                        <th  class="text-left">    </th>
+                     </tr>
+                  </thead>
+                  <tbody id="table_modal">
+                  </tbody>
+               </table>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block bottomscript %}
+<!-- jquery-3.2.1.min -->
+<script type= "text/javascript" src="{{('/static/js/jquery-3.2.1.min.js')}}" charset="utf-8"></script>
+<script type="text/javascript">
+   var baseUrl = document.location.protocol+'//' + document.domain + ':' + location.port;
+   var id = 1;
+   
+   
+   $(document).ready(function()
+   {
+     $("#author_save_btn").val("Save");
+   
+      var authors_data_json = $("#authors_data_json").val();
+      
+      authors_data_json = JSON.parse(authors_data_json);
+      result_3 = authors_data_json;
+   
+     $("#selected_authors_list").empty();
+   
+     for (var i = 0; i < result_3.length; i++) 
+      {
+        var  full_name = result_3[i].name;
+        var newid = id++;  
+         $("#selected_authors_list").append('<tr valign="top" id="'+newid+'">\n\
+         \n\
+         <td  class="name'+newid+'">' + result_3[i].name  + '</td>\n\
+         <td  id="item_desc_table" class="email'+newid+'">' +result_3[i].email + '</td>\n\
+         <td  class="email'+newid+'">' +(result_3[i].mobile==null?'':result_3[i].mobile) +  '</td>\n\
+         <td  class="email'+newid+'">' +result_3[i].role +  '</td>\n\
+          <td  class="email'+newid+'">' +result_3[i].topic +  '</td>\n\
+         <td  class="email'+newid+'">' +result_3[i].duration +  '</td>\n\
+         <td width="50px"><input type="button"  id="'+result_3[i].author_id+'" class="editit"  value="Edit" ></td>\n\
+         <td width="50px"><input type="button"  id="'+result_3[i].author_id+'" class="remove"  value="Remove" ></td>\n\
+          </tr>');
+      }
+   });
+   
+   
+   $("#search_btn").on('click','#search_btn',function(e)
+   {
+     e.preventDefault();
+     $('#myModal').modal('toggle');
+   }); 
+         
+   
+   $(document).on('click', '#search_btn_modal',function(e)
+   {
+   e.preventDefault();
+   var search_input  = $("#search_input_modal").val();
+   
+   var session_id    = $("#session_id").val();
+   var user_id       = $("#user_id").val();
+   
+   // alert(search_input);
+     $.ajax({    
+         type: "POST",
+         data: { "search_input": search_input,"session_id" :session_id , "user_id" : session_id },
+         url: baseUrl + "/backoffice/get_authors",             
+         dataType: "json",    
+   
+         success: function(data)
+         {
+             if(data)
+             {
+                 result = data;
+                 var type1 = jQuery.type(result)
+                 $("#table_modal").empty();
+   
+                 for (var i = 0; i < result.length; i++) 
+                  {
+                    var  full_name = result[i].full_name;
+                    var newid = id++;  
+                     $("#table_modal").append('<tr valign="top" id="'+newid+'">\n\
+                     \n\
+                     <td  class="name'+newid+'">' + result[i].full_name  + '</td>\n\
+                     <td  id="item_desc_table" class="email'+newid+'">' +result[i].email + '</td>\n\
+                     <td  class="email'+newid+'">' +result[i].mobile +  '</td>\n\
+                     <td width="50px"><input type="button" id="'+result[i].user_id+'" class="selectit"  value="Select" ></td>\n\ </tr>');
+                  }
+                     
+             } 
+             else
+             {
+               alert("No Recored Found")
+             }
+   
+         }
+       
+     });
+   
+   
+   });  // search_btn_modal click event end
+   
+   
+   $(document).on('click','.selectit' ,function(e)
+      {
+        e.preventDefault();
+        selected_user_id = $(this).attr('id');
+
+        // alert($(this).attr('id'));
+        
+        $.ajax({    
+         type: "POST",
+         data: { "selected_user_id": selected_user_id },
+         url: baseUrl+"/backoffice/get_user",             
+         dataType: "json",    
+   
+         success: function(data)
+         {
+           if(data)
+             {
+                result_2 = data;
+                $("#user_id").empty();
+                // $("#author_id").empty();
+                $("#author_name").empty();
+                $("#author_email").empty();
+                $("#author_mobile").empty();
+                $("#author_user_id").empty();
+                $("#role").val('');
+                $("#duration").empty();
+   
+                for (var i = 0; i < result_2.length; i++) 
+                  {
+                    var  full_name = result_2[i].full_name;
+                    var email  = result_2[i].email;
+                    var mobile = result_2[i].mobile;
+                    var author_user_id = result_2[i].user_id;
+                    var duration       = result_2[i].duration;
+                    
+                      $("#author_name").val(full_name);
+                      $("#author_email").val(email);
+                      $("#author_mobile").val(mobile);
+                      $("#author_user_id").val(author_user_id);
+                      $("#duration").val(duration);
+   
+                  }
+                jQuery.noConflict();
+                 window.$('#myModal').modal('hide');
+   
+             }
+             else
+             {
+               alert("No Recored Found")
+             }
+           }
+         });
+      });  // select it butotn click event 
+
+
+  
+   // author_save_btn
+   $(document).on('click','#author_save_btn' ,function(e)
+      {
+        e.preventDefault();
+   
+   
+        var name    = $("#author_name").val();
+        var email   = $("#author_email").val();
+        var mobile  = $("#author_mobile").val();
+   
+        var user_id    = $("#author_user_id").val();
+        var author_id    = $("#author_id").val();
+        var session_id = $("#session_id").val();
+   
+        var role_id    = $("#role").val();
+        var value = $("#role:selected").val()
+   
+        var topics     = $("#topics").val();
+        var duration   = $("#duration").val();
+   
+        var button_value = $(this).attr('value');
+
+        if(!name)
+        {
+          alert("Please enter Author Name")
+          return false;
+        }
+
+        if(!parseInt(role_id)) 
+        {
+          alert("Please select Designation")
+          return false; 
+        }
+         
+   
+         $.ajax({    
+         type: "POST",
+         data: { "name": name,"email":email,"mobile":mobile,"user_id": user_id,"session_id":session_id,"role_id":role_id,"topics":topics,"duration":duration,"author_id": author_id},
+         url: baseUrl+"/backoffice/save_selected_authors",             
+         dataType: "json",    
+   
+         success: function(data)
+         {
+              
+            result_3 = data;
+            
+            $("#author_name").val('');
+            $("#author_email").val('');
+            $("#author_mobile").val('');
+            $("#author_user_id").val('');
+            $("#author_id").val(0);
+            $("#role").val(0);
+            $("#topics").val('');
+            $("#duration").val('');
+
+             var type1 = jQuery.type(result_3)
+             $("#selected_authors_list").empty();
+
+             for (var i = 0; i < result_3.length; i++) 
+              {
+                var  full_name = result_3[i].name;
+                var newid = id++;  
+                 $("#selected_authors_list").append('<tr valign="top" id="'+newid+'">\n\
+                 \n\
+                 <td  class="name'+newid+'">' + result_3[i].name  + '</td>\n\
+                 <td  id="item_desc_table" class="email'+newid+'">' +result_3[i].email + '</td>\n\
+                 <td  class="email'+newid+'">' +result_3[i].mobile +  '</td>\n\
+                 <td  class="email'+newid+'">' +result_3[i].role +  '</td>\n\
+                 <td  class="email'+newid+'">' +result_3[i].topic +  '</td>\n\
+                 <td  class="email'+newid+'">' +result_3[i].duration +  '</td>\n\
+                 <td width="50px"><input type="button"  id="'+result_3[i].author_id+'" class="editit" value="Edit" ></td>\n\
+                 <td width="50px"><input type="button"  id="'+result_3[i].author_id+'" class="remove"  value="Remove" ></td>\n\
+                  </tr>');
+              }
+                     
+            
+           }
+         });
+        
+        
+      });  // select it butotn click event
+   
+   
+   
+   
+   // remove btn 
+   $(document).on('click','.remove' ,function(e)
+      {
+        e.preventDefault();
+   
+        author_id = $(this).attr('id');
+        session_id = $("#session_id").val()
+        
+        $.ajax({    
+         type: "POST",
+         data: { "author_id": author_id,session_id:session_id},
+         url: baseUrl+"/backoffice/remove_selected_authors",             
+         dataType: "json",    
+   
+         success: function(data)
+         {
+           if(data)
+             {
+                result_3 = data;
+                
+                $("#author_name").val('');
+                $("#author_email").val('');
+                $("#author_mobile").val('');
+                $("#author_user_id").val('');
+                $("#role").val(0);
+                $("#topics").val('');
+                $("#duration").val('');
+   
+   
+   
+                 var type1 = jQuery.type(result_3)
+                 $("#selected_authors_list").empty();
+   
+                 for (var i = 0; i < result_3.length; i++) 
+                  {
+                    var  full_name = result_3[i].name;
+                    var newid = id++;  
+                     $("#selected_authors_list").append('<tr valign="top" id="'+newid+'">\n\
+                     \n\
+                     <td  class="name'+newid+'">' + result_3[i].name  + '</td>\n\
+                     <td  id="item_desc_table" class="email'+newid+'">' +result_3[i].email + '</td>\n\
+                     <td  class="email'+newid+'">' +result_3[i].mobile +  '</td>\n\
+                     <td  class="email'+newid+'">' +result_3[i].role +  '</td>\n\
+                     <td  class="email'+newid+'">' +result_3[i].topic +  '</td>\n\
+                     <td  class="email'+newid+'">' +result_3[i].duration +  '</td>\n\
+                     <td width="50px"><input type="button"  id="'+result_3[i].author_id+'" class="edit" value="Edit" ></td>\n\
+                     <td width="50px"><input type="button"  id="'+result_3[i].author_id+'" class="remove" value="Remove" ></td>\n\
+                      </tr>');
+                  }
+                     
+             }
+             else
+             {
+               alert("No Recored Found")
+             }
+           }
+         });
+      });  // remove it butotn click event
+   
+   
+   
+   
+   // remove btn 
+   $(document).on('click','.editit' ,function(e)
+      {
+        e.preventDefault();
+   
+        author_id = $(this).attr('id');
+        $.ajax({    
+         type: "POST",
+         data: { "author_id": author_id},
+         url: baseUrl+"/backoffice/get_author",             
+         dataType: "json",    
+   
+         success: function(data)
+         {
+           if(data)
+             {
+                result_3 = data;
+   
+                $("#author_save_btn").val("Update");
+                
+                $("#author_name").val(result_3[0].name);
+                $("#author_email").val(result_3[0].email);
+                $("#author_mobile").val(result_3[0].mobile);
+                $("#author_user_id").val(result_3[0].user_id);
+                $("#role").val(result_3[0].role_id);
+                $("#author_id").val(result_3[0].author_id);
+                $("#topics").val(result_3[0].topic);
+                $("#duration").val(result_3[0].duration);
+                     
+             }
+             else
+             {
+               alert("No Recorded Found")
+             }
+           }
+         });
+      });  // remove it butotn click event
+   
+   
+   
+   
+   
+   
+   
+</script>
+{% endblock %}

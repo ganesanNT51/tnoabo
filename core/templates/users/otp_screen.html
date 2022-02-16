@@ -1,0 +1,143 @@
+<!--using html5 doctype -->
+<!doctype html>
+
+<!-- Test -->
+<!--using language attribute-->
+<html lang="en">
+    <head>
+
+        <!--using character set attribute in meta tag-->
+        <meta charset="UTF-8">
+
+        <!--bootstrap-4 for mobile responsive-->
+        <!--using below meta tag to set width and initial zoom level-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="\static\css\bootstrap.min.css">
+
+        <!--link for input group prepend for adding text / icon in the input -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="\static\css\loader.css">
+
+        <!--link for CSS-->
+        <link rel="stylesheet" type="text/css" href="\static\css\style.css">
+        <link rel="stylesheet" type="text/css" href="\static\css\theme.css">        
+
+        <link rel="stylesheet" type="text/css" href="\static\css\dockmenu.css">  
+
+        <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">   
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+     #loginscreen
+    {
+       margin-top: 100px;
+    }
+    </style>
+   <script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 20000);
+    </script>
+
+   
+    </head>
+
+<body>    
+    <div class="container">
+        
+       
+    
+          <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+              <div class="card card-signin my-5">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Verify OTP Number</h5>
+                  <br/>
+                  {% for mesg in get_flashed_messages() %}
+                    <div id="successMessage" class="alert alert-danger" style="color: red; text-align: center;">
+                        <h4>{{ mesg }}</h4>
+                    </div>
+                    {% endfor %}
+                  <form     action = "{{ url_for('user.PostVerify_otp', id = user_id) }}" method = "POST">
+                    
+      
+                    <div class="form-label-group">
+                      <input type="number" id="otp_number" class="form-control" name="otp_number" placeholder="Enter OTP Number" >
+                    </div>
+                    <br/>
+                     <input type="hidden"  class="form-control-plaintext" id="user_id" name="user_id" value="{{user_id}} ">
+                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Verify OTP</button>
+                    <hr class="my-4">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        
+        
+    
+        
+    </div>
+                
+    
+        
+<script language="JavaScript" type="text/javascript" src="../static/js/jquery.min.js"></script>
+<!-- <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
+<script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<!-- link for jquery ajax loader -->
+<script src = "{{('/static/script/loader.js')}}"> </script>
+
+<script>
+    $(document).ready(function(){
+
+        $("#submit_btn").click(function() {
+alert('in Forgot submit js function call')
+// validate_register_form()
+var BaseUrl = document.location.origin
+post_forgot_password_page()
+$("#alert-success").hide()
+$("#alert-danger").hide()
+
+})
+    
+})
+</script>
+
+
+</body>
+
+
+
+
+
+
+</html>

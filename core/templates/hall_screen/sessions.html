@@ -1,0 +1,48 @@
+{% extends 'hall_screen/hall_screen_layout.html' %}
+
+{% block title %} Program Live page {% endblock %}
+
+{% block content %}
+  <br/><br/>
+  <table width="100%" style="font-size: 12px;">
+    <tbody>
+    </tbody>
+   </table>
+
+    {% for mesg in get_flashed_messages() %}
+    <div style="color: red; text-align: center;">
+      <h4>{{ mesg }}</h4>
+    </div>
+      {% endfor %}
+    <form method="post">
+    <table class="table  " style="font-size: 12px;border: 2px solid black;width: 100%; " >
+        <thead>  
+           <tr style="color: white;">
+               <th>Session ID</th>
+              <th >Session Title </th>
+              <th>Session Description</th>
+              <th>Start Time </th>
+              <th> End Time </th>
+              <th> Duration</th>
+              <th> Hall</th>
+              <th>Video link</th>
+                 
+           </tr>
+         </thead>
+         {% for row in ses_results %}
+           <tbody>
+               <tr style="color: white;">
+                   <td >{{row.session_id}}</td>
+                   <td >{{row.session_title}}</td>
+                   <td >{{row.session_desc}}</td>
+                   <td >{{ row.session_start_date_time.strftime('%d-%m-%Y %H:%M:%S')}}</td>
+                   <td >{{ row.session_end_date_time.strftime('%d-%m-%m %H:%M:%S') }}</td>
+                   <td>{{row.session_duration}}</td>
+                   <td>{{row.session_hall}}</td>
+                   <td><a href="{{row.video_link}}" target="blank">{{row.video_link}}</a></td>
+               </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+        </form>
+  {% endblock %}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title> Login</title>
+    <!-- Custom fonts for this template-->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ ('static/vender_1/fontawesome-free/css/all.min.css') }}"> -->
+
+    <link rel="stylesheet" type="text/css" href="\static\css\style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ ('static/css/bootstrap.min.css') }}">
+
+
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+      
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    
+                    <div class="card-body p-0">
+                            <div class="col-lg-12 p-0 text-center" style="background-color: #fdf033;">
+                                <img src="static/images/login/Transactional_mailer_header2.jpeg" width="100%" height="auto">
+                            </div>
+                        <!-- Nested Row within Card Body -->
+                        <div class="row  d-sm-flex flex-row-reverse">
+                           
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Login </h1>
+                                    </div>
+
+                                       {% for mesg in get_flashed_messages() %}
+                                        <div class="alert alert-danger" id="successMessage" style="color: red; text-align: center;">
+                                          <h4>{{ mesg }}</h4>
+                                        </div>
+                                          {% endfor %}
+                                        
+                                          
+                                <form  id="login_form" action="{{ url_for('user.Post_login') }}" method="POST">
+                                    <div class="row">
+                                        <div class="col-lg-4 form-group">
+                                           <label style="margin-left: 85px;"> <b>Email</b> </label>
+                                    </div>
+                                    <div class="col-lg-7 form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="email" name="email" aria-describedby="emailHelp"
+                                                placeholder="Enter Email Address...">
+                                                <span class="error" style="color: red;" name="emailerror" id="emailerror"></span> 
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 form-group p-2">
+                                           <label style="margin-left: 85px;"> <b>Password</b> </label>
+                                        </div>
+                                        <div class="col-lg-7 form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                            id="password" name="password" placeholder="Password">
+                                            <span class="error" style="color: red;" name="passworderror" id="passworderror"></span> 
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 offset-md-4">
+                                        <input type="submit" value="Login" name="submit" id="login_submit" class="btn btn-primary btn-user btn-block">
+                                    </div>
+                                </form>
+                                    <hr>
+                                   <div class="text-center">
+                                        <a class="small" href="{{url_for('user.Forgot_password')}}">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        
+                                        <a class="small" href="http://boa2021reg.urbanedge.co.in/" > New Registration</a>
+                                        <!-- <a class="small" href="{{ url_for('user.Register') }}" > New Registration</a> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script  type= "text/javascript"  src="{{ ('../static/js/jquery.min.js')}}"></script>
+    <script  type= "text/javascript"  src="{{ ('../static/js/jquery.validate.min.js')}}"></script>
+    <script  type= "text/javascript"  src="{{ ('../static/js/bootstrap.min.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+        
+            $("#login_submit").click(function() {
+                validate_login_form()
+                $("#alert-success").hide()
+                $("#alert-danger").hide()
+            })
+          
+        })
+
+
+        function validate_login_form()
+         {
+         
+             errorclass : 'error',
+         
+             $("#login_form").validate({
+                
+                 rules : {
+                     email : {
+                         required : true,
+                         email : true
+                     },
+                     
+                     password : "required",
+                 },
+         
+                 messages : {
+                     password : "Please enter the Password",
+                     email : {
+                         required : "Please enter the Email id",
+                         email : "Please provide valid Email Id"
+                     },
+                     
+                 },
+                 highlight: function(element) {
+                     $(element).parent().addClass('error')
+                 },
+             
+                 unhighlight: function(element) {
+                     $(element).parent().removeClass('error')
+                 },
+         
+                 submitHandler: function(form) {
+                     form.submit();
+                 }
+             })
+                
+         }
+    </script>
+
+</body>
+
+<script type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 20000); 
+</script>
+
+
+
+</html>

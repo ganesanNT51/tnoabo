@@ -1,0 +1,54 @@
+{% extends 'backoffice/bo_layout.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+
+       <div class="row" style="height: vh100 !important;">
+			<div class="col-12 text-center mb-2">
+			     <h2>Registered Users </h2>
+			</div>
+			<!-- <div class="col-2 text-right" style="margin-top: 10px;"> 
+				<a class="btn btn-danger btn-sm mb-2" href="{{ url_for('backoffice.BOLogout') }}" ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+			</div> -->
+      </div> 
+   	<table class="table table-striped" id="myTable">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" style="color: white;">Del.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Password</th>
+      <th scope="col">Affiliation</th>
+      
+     <th scope="col">Send Mail</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    
+    
+    {% set r_count = reg_delegate_count %}
+  	 {% for row in reg_data|reverse %}
+    
+     
+    <tr>
+      
+        <td>{{  row.del_no }}</td>
+      <td>{{row.full_name}}</td>
+      <td>{{ row.email}}</td>
+      <td> {{row.mobile}}</td>
+      <td> {{row.password}}</td>
+      <td> {{row.affiliation}}</td>
+      <td> <a href="{{url_for('backoffice.SingleEmail',email=row.email)}}" >Send Mail</a></td>
+      
+    </tr>
+ {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+
+   	
+  

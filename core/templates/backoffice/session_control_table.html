@@ -1,0 +1,40 @@
+{% for row in allsessions : %}
+      
+      
+      {% set end_dt = row.session_end_date_time %}
+
+      {% if current_dt > end_dt :%}
+            <tr style="background-color: red;">
+      {%else :%}
+         <tr style="background-color: green;color:white;">
+      {% endif %}
+
+    
+      <th scope="row"><label id="session_id">{{ row.session_id}}</label></th>
+      
+      <td> <label > {{row.date}} </label> </td>
+      <td><label >{{row.session_hall}} </label></td>
+
+      <!--<td><input class="form-control" type="text" name="session_title" id="session_title_{{row.session_id}}" value="{{row.session_title}}"> </td>-->
+      <!--<td><input class="form-control" type="text" name="session_desc" id="session_desc_{{row.session_id}}" value="{{row.session_subtitle |default('') }}"> </td>-->
+      
+      
+      
+      <td>
+          <textarea  id="session_title_{{row.session_id}}" name="session_title" rows="4" cols="30"> {{row.session_title}} </textarea>
+      </td>
+      <td>
+          <textarea  name="session_desc" id="session_desc_{{row.session_id}}" rows="4" cols="30"> {{row.session_subtitle |default('') }} </textarea>
+      </td>
+      <td>
+          <textarea  name="live_stream" id="live_stream_{{row.session_id}}" rows="4" cols="30"> {{row.live_stream |default('') }} </textarea>
+      </td>
+      <td><input class="form-control" type="text" name="session_start_date_time" id="session_start_date_time_{{row.session_id}}" value="{{row.session_start_date_time}}"> </td>
+      <td> <input class="form-control" type="text" name="session_end_date_time" id="session_end_date_time_{{row.session_id}}" value="{{row.session_end_date_time}}"></td>
+      <td> 
+           
+           <button  type="button"  class="btn btn-dark save_btn" value="{{row.session_id}}">Save</button>
+      </td>
+    </tr>
+
+    {% endfor %}
