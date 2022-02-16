@@ -29,5 +29,5 @@ class DevelopmentConfig(Config):
     MAIL_GUN_KEY = 'DEVKEY23'
 
 class SECRET_KEY(Config):
-    SECRET_KEY = '5678906567890543346789976565'
+    SECRET_KEY = '12345'
 
